@@ -1,10 +1,13 @@
 import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
+import Auth from "./Auth";
 
 
 const Navigation = () => {
   return (
-    <NavigationContainer></NavigationContainer>
+    <NavigationContainer>
+      <Auth />
+    </NavigationContainer>
   )
 }
 
