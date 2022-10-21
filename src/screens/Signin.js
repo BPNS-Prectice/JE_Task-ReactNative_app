@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { ThemeContext } from "styled-components";
 import styled from "styled-components";
-import { Button } from "../components";
+import { Button, Input } from "../components";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 // import { theme } from "../../theme";
 
@@ -15,20 +15,40 @@ const Container = styled.View`
   padding-bottom: ${({ insets: { bottom } }) => bottom}px;
 `;
 
-const StyledText = styled.Text`
-  font-size: 30px;
-  color: #111111;
-`;
-
 export default function Signin({ navigation }) {
   const insets = useSafeAreaInsets();
   // 정확힌 모르겠으나 헤더 대신 패딩을 넣는 ? 그런 용도인듯
   const theme = useContext(ThemeContext);
 
+  const [userId, setUserId] = useState("");
+  const [userPw, setUserPw] = useState("");
+  const refPassword = useRef(null);
+
+  const _handleSigninBtnPress = () => {
+    console.log('signin')
+  }
+
   return (
     <Container insets={insets}>
-      <StyledText>Signin</StyledText>
-      <Button title="Sign up" onPress={() => console.log("signin")} />
+      <Input
+        label="ID"
+        placeholder="user ID"
+        returnkeyType="next"
+        value={userId}
+        onChangeText={setUserId}
+        onSubmitEditing={() => refPassword.current.focus()}
+      />
+      <Input
+        ref={refPassword}
+        label="Password"
+        placeholder="user Password"
+        returnkeyType="done"
+        value={userPw}
+        onChangeText={setUserPw}
+        isPassword={true} // 비밀번호 입력 시 특수문자로 노출
+        onSubmitEditing={_handleSigninBtnPress}
+      />
+      <Button title="Sign in" onPress={_handleSigninBtnPress} />
       <Button
         title="or sign up"
         onPress={() => navigation.navigate("Signup")}
