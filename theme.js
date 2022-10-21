@@ -7,4 +7,8 @@ const Colors = {
 export const theme = {
   background: Colors.white,
   text: Colors.text,
-}
+
+  // Button
+  btnBackground: Colors.main,
+  btnTitle: Colors.white,
+};
