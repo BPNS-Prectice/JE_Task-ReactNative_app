@@ -18,8 +18,8 @@ const StyledText = styled.Text`
 export default function Signup({ navegation }) {
   return (
     <Container>
-      <StyledText>Signin</StyledText>
-      <Button title="signup" onPress={() => navegation.navigate('Signup')} />
+      <StyledText>Signup</StyledText>
+      {/* <Button title="signup" onPress={() => navegation.navigate('Signup')} /> */}
     </Container>
   );
 }
