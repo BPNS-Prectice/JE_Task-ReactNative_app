@@ -3,7 +3,8 @@ import { ThemeContext } from "styled-components";
 import styled from "styled-components";
 import { Button, Input } from "../components";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-// import { theme } from "../../theme";
+// import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
 
 const Container = styled.View`
   flex: 1;
@@ -29,6 +30,10 @@ export default function Signin({ navigation }) {
   }
 
   return (
+    // // <KeyboardAwareScrollView 
+    // extraScrollHeight={20}
+    // contentContainerStyle={{ flex: 1 }}
+    // >
     <Container insets={insets}>
       <Input
         label="ID"
@@ -56,5 +61,6 @@ export default function Signin({ navigation }) {
         textStyle={{ color: theme.btnTextLink, fontSize: 18 }}
       />
     </Container>
+    // </KeyboardAwareScrollView>
   );
 }
