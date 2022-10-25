@@ -3,8 +3,7 @@ import { ThemeContext } from "styled-components";
 import styled from "styled-components";
 import { Button, Input } from "../components";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-// import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const Container = styled.View`
   flex: 1;
@@ -26,41 +25,41 @@ export default function Signin({ navigation }) {
   const refPassword = useRef(null);
 
   const _handleSigninBtnPress = () => {
-    console.log('signin')
-  }
+    console.log("signin");
+  };
 
   return (
-    // // <KeyboardAwareScrollView 
-    // extraScrollHeight={20}
-    // contentContainerStyle={{ flex: 1 }}
-    // >
-    <Container insets={insets}>
-      <Input
-        label="ID"
-        placeholder="user ID"
-        returnkeyType="next"
-        value={userId}
-        onChangeText={setUserId}
-        onSubmitEditing={() => refPassword.current.focus()}
-      />
-      <Input
-        ref={refPassword}
-        label="Password"
-        placeholder="user Password"
-        returnkeyType="done"
-        value={userPw}
-        onChangeText={setUserPw}
-        isPassword={true} // 비밀번호 입력 시 특수문자로 노출
-        onSubmitEditing={_handleSigninBtnPress}
-      />
-      <Button title="Sign in" onPress={_handleSigninBtnPress} />
-      <Button
-        title="or sign up"
-        onPress={() => navigation.navigate("Signup")}
-        containerStyle={{ marginTop: 0, backgroundColor: "transparent" }}
-        textStyle={{ color: theme.btnTextLink, fontSize: 18 }}
-      />
-    </Container>
-    // </KeyboardAwareScrollView>
+    <KeyboardAwareScrollView
+      extraScrollHeight={20}
+      contentContainerStyle={{ flex: 1 }}  // 화면 세로 중앙정렬
+    >
+      <Container insets={insets}>
+        <Input
+          label="ID"
+          placeholder="user ID"
+          returnkeyType="next"
+          value={userId}
+          onChangeText={setUserId}
+          onSubmitEditing={() => refPassword.current.focus()}
+        />
+        <Input
+          ref={refPassword}
+          label="Password"
+          placeholder="user Password"
+          returnkeyType="done"
+          value={userPw}
+          onChangeText={setUserPw}
+          isPassword={true} // 비밀번호 입력 시 특수문자로 노출
+          onSubmitEditing={_handleSigninBtnPress}
+        />
+        <Button title="Sign in" onPress={_handleSigninBtnPress} />
+        <Button
+          title="or sign up"
+          onPress={() => navigation.navigate("Signup")}
+          containerStyle={{ marginTop: 0, backgroundColor: "transparent" }}
+          textStyle={{ color: theme.btnTextLink, fontSize: 18 }}
+        />
+      </Container>
+    </KeyboardAwareScrollView>
   );
 }
