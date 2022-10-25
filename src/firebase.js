@@ -1,3 +1,5 @@
+// 최신 코드로 복붙한거임. 수정하지 말것
+
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import config from "../firebase.json";

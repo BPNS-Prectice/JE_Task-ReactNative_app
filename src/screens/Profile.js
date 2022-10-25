@@ -7,7 +7,17 @@ const Container = styled.View`
   background-color: ${({ theme }) => theme.background};
 `;
 
-export default function Profile({ navigation, route }) {
+// export default function Profile({ navigation, route }) {
+//   console.log(route.params)
+//   return (
+//     <Container>
+//       <Button title="signout" onPress={() => navigation.navigate('Signin')} />
+//     </Container>
+//   );
+// }
+
+
+const Profile = ({ navigation, route }) => {
   console.log(route.params)
   return (
     <Container>
@@ -15,3 +25,5 @@ export default function Profile({ navigation, route }) {
     </Container>
   );
 }
+
+export default Profile;

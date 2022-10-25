@@ -22,14 +22,14 @@ export default function Signin({ navigation }) {
   // 정확힌 모르겠으나 헤더 대신 패딩을 넣는 ? 그런 용도인듯
   const theme = useContext(ThemeContext);
 
-  const [userId, setUserId] = useState("");
-  const [userPw, setUserPw] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const refPassword = useRef(null);
 
   const _handleSigninBtnPress = async () => {
     try {
       const user = await signin({ email, password });
-      navigation.navigate("Profile", { user });
+      navigation.navigate('Profile', { user });
     } catch (e) {
       Alert.alert("Signin Error", e.message);
     }
@@ -45,8 +45,8 @@ export default function Signin({ navigation }) {
           label="ID"
           placeholder="user ID"
           returnkeyType="next"
-          value={userId}
-          onChangeText={setUserId}
+          value={email}
+          onChangeText={setEmail}
           onSubmitEditing={() => refPassword.current.focus()}
         />
         <Input
@@ -54,8 +54,8 @@ export default function Signin({ navigation }) {
           label="Password"
           placeholder="user Password"
           returnkeyType="done"
-          value={userPw}
-          onChangeText={setUserPw}
+          value={password}
+          onChangeText={setPassword}
           isPassword={true} // 비밀번호 입력 시 특수문자로 노출
           onSubmitEditing={_handleSigninBtnPress}
         />
