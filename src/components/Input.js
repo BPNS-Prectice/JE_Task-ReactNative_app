@@ -82,7 +82,7 @@ Input.propTypes = {
   onBlur: PropTypes.func,
   placeholder: PropTypes.string,
   returnkeyType: PropTypes.oneOf(["done", "next"]), // string이긴 하지만 oneOf를 이용해서 두가지 중 한가지만 고르도록 하겟다
-  maxLength: PropTypes.numder,
+  maxLength: PropTypes.number,
   isPassword:  PropTypes.bool,
 };
 
