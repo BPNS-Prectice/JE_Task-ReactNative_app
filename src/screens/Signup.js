@@ -1,3 +1,5 @@
+// 회원가입 화면
+
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import { Button, Input } from "../components";

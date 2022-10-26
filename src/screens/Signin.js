@@ -1,3 +1,5 @@
+// 로그인 화면
+
 import React, { useContext, useRef, useState } from "react";
 import { ThemeContext } from "styled-components";
 import styled from "styled-components";
@@ -29,7 +31,7 @@ export default function Signin({ navigation }) {
   const _handleSigninBtnPress = async () => {
     try {
       const user = await signin({ email, password });
-      navigation.navigate('Profile', { user });
+      navigation.navigate('Profile', { user });   // Profile파일로 user정보 넘겨주기
     } catch (e) {
       Alert.alert("Signin Error", e.message);
     }
