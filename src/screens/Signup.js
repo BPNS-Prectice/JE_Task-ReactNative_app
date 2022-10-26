@@ -4,7 +4,9 @@ import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import { Button, Input } from "../components";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-
+import { signup } from "../firebase";
+import { Alert } from "react-native";
+import { async } from "@firebase/util";
 
 const Container = styled.View`
   flex: 1;
@@ -14,7 +16,7 @@ const Container = styled.View`
   padding: 50px 20px;
 `;
 
-export default function Signup() {
+export default function Signup({navigation}) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,8 +26,15 @@ export default function Signup() {
   const refPassword = useRef(null);
   const refPasswordConfirm = useRef(null);
 
-  const _handleSignupBtnPress = () => {
-    console.log("signup");
+  const _handleSignupBtnPress = async () => {
+    // console.log("signup");
+    try {
+      // const user = await signup({ name, email, password, photo });
+      const user = await signup({ name, email, password });
+      navigation.navigate('Profile', {user})
+    } catch (e) {
+      Alert.alert("Signup Error", e.message);
+    }
   };
 
   return (
