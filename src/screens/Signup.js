@@ -1,6 +1,6 @@
 // 회원가입 화면
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { Button, Input, ErrorMessage } from "../components";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -8,6 +8,7 @@ import { signup } from "../firebase";
 import { Alert } from "react-native";
 import { async } from "@firebase/util";
 import { validateEmail, removeWhitespace } from "../utils";
+import { UserContext } from "../contexts";
 
 const Container = styled.View`
   flex: 1;
@@ -18,6 +19,7 @@ const Container = styled.View`
 `;
 
 export default function Signup({ navigation }) {
+  const {setUser} = useContext(UserContext)
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -64,7 +66,8 @@ export default function Signup({ navigation }) {
     try {
       // const user = await signup({ name, email, password, photo });
       const user = await signup({ name, email, password });
-      navigation.navigate("Profile", { user });
+      // navigation.navigate("Profile", { user });
+      setUser(user);
     } catch (e) {
       Alert.alert("Signup Error", e.message);
     }

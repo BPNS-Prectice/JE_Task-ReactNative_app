@@ -9,6 +9,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { signin } from "../firebase";
 import { Alert } from "react-native";
 import { validateEmail, removeWhitespace } from "../utils";
+import { UserContext } from "../contexts";
 
 const Container = styled.View`
   flex: 1;
@@ -24,6 +25,7 @@ export default function Signin({ navigation }) {
   const insets = useSafeAreaInsets();
   // 정확힌 모르겠으나 헤더 대신 패딩을 넣는 ? 그런 용도인듯
   const theme = useContext(ThemeContext);
+  const { setUser } = useContext(UserContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,9 +33,10 @@ export default function Signin({ navigation }) {
   const [disabled, setDisabled] = useState(true);
   const refPassword = useRef(null);
 
-  useEffect(() => {    // 버튼 활성화 조건
-    setDisabled(!(email && password && !errorMessage))
-  }, [email, password, errorMessage])
+  useEffect(() => {
+    // 버튼 활성화 조건
+    setDisabled(!(email && password && !errorMessage));
+  }, [email, password, errorMessage]);
 
   const _handleEmailChange = (email) => {
     const changedEmail = removeWhitespace(email);
@@ -51,7 +54,8 @@ export default function Signin({ navigation }) {
   const _handleSigninBtnPress = async () => {
     try {
       const user = await signin({ email, password });
-      navigation.navigate("Profile", { user }); // Profile파일로 user정보 넘겨주기
+      setUser(user);
+      // navigation.navigate("Profile", { user }); // Profile파일로 user정보 넘겨주기
     } catch (e) {
       Alert.alert("Signin Error", e.message);
     }
@@ -82,8 +86,12 @@ export default function Signin({ navigation }) {
           onSubmitEditing={_handleSigninBtnPress}
         />
         <ErrorMessage message={errorMessage} />
-        <Button title="Sign in" onPress={_handleSigninBtnPress} disabled={disabled}/>  
-                                                            {/* disabled : 비활성화 */}
+        <Button
+          title="Sign in"
+          onPress={_handleSigninBtnPress}
+          disabled={disabled}
+        />
+        {/* disabled : 비활성화 */}
         <Button
           title="or sign up"
           onPress={() => navigation.navigate("Signup")}
