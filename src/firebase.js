@@ -9,6 +9,6 @@ const app = initializeApp(config);
 const auth = getAuth(app);
 
 export const signin = async ({ email, password }) => {
-  const { user } = signInWithEmailAndPassword(auth, email, password);
+  const { user } = await signInWithEmailAndPassword(auth, email, password);
   return user;
 };

@@ -1,9 +1,9 @@
-// 정규표현식 확인 함수 파일
+export const validateEmail = email => {
+  const regex = /^[0-9?A-z0-9?]+(\.)?[0-9?A-z0-9?]+@[0-9?A-z]+\.[A-z]{2}.?[A-z]{0,3}$/;
+  return regex.test(email);
+};
 
-import React from 'react'
-
-export default function utils() {
-  return (
-    <div>utils</div>
-  )
-}
+export const removeWhitespace = text => {
+  const regex = /\s/g;
+  return text.replace(regex, '');
+}; // 공백제거
