@@ -8,7 +8,7 @@ import { signup } from "../firebase";
 import { Alert } from "react-native";
 import { async } from "@firebase/util";
 import { validateEmail, removeWhitespace } from "../utils";
-import { UserContext } from "../contexts";
+import { UserContext, ProgressContext } from "../contexts";
 
 const Container = styled.View`
   flex: 1;
@@ -20,6 +20,8 @@ const Container = styled.View`
 
 export default function Signup({ navigation }) {
   const {setUser} = useContext(UserContext)
+  const {spinner} = useContext(ProgressContext)
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -64,12 +66,13 @@ export default function Signup({ navigation }) {
   const _handleSignupBtnPress = async () => {
     // console.log("signup");
     try {
-      // const user = await signup({ name, email, password, photo });
+      spinner.start();
       const user = await signup({ name, email, password });
-      // navigation.navigate("Profile", { user });
       setUser(user);
     } catch (e) {
       Alert.alert("Signup Error", e.message);
+    } finally {
+      spinner.stop();
     }
   };
 

@@ -14,8 +14,7 @@ const Container = styled.View`
 const Indicator = styled.ActivityIndicator.attrs(({ theme }) => ({
   size: "large",
   color: theme.spinnerIndicator,
-}));
-``;
+}))``;
 
 const Spinner = () => {
   return (

@@ -9,7 +9,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { signin } from "../firebase";
 import { Alert } from "react-native";
 import { validateEmail, removeWhitespace } from "../utils";
-import { UserContext } from "../contexts";
+import { UserContext, ProgressContext } from "../contexts";
 
 const Container = styled.View`
   flex: 1;
@@ -26,6 +26,7 @@ export default function Signin({ navigation }) {
   // 정확힌 모르겠으나 헤더 대신 패딩을 넣는 ? 그런 용도인듯
   const theme = useContext(ThemeContext);
   const { setUser } = useContext(UserContext);
+  const { spinner } = useContext(ProgressContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -53,11 +54,14 @@ export default function Signin({ navigation }) {
 
   const _handleSigninBtnPress = async () => {
     try {
+      spinner.start()
       const user = await signin({ email, password });
       setUser(user);
       // navigation.navigate("Profile", { user }); // Profile파일로 user정보 넘겨주기
     } catch (e) {
       Alert.alert("Signin Error", e.message);
+    } finally {  // ES6문법: finally() 는 Promise 가 resolve(해결)되던 reject(거부)되던 상관없이 지정된 함수를 실행- 로그인 성공여부와 상관없이 실행
+      spinner.stop();  // 로그인 성공여부와 상관없이 스피너 실행 정지 시키기
     }
   };
 
