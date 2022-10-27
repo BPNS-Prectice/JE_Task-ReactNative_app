@@ -22,7 +22,7 @@ const StyledInput = styled.TextInput.attrs(({ theme }) => ({
   padding: 20px 10px;
   font-size: 16px;
   border: 1px solid
-    ${({ theme, isFocused }) => (isFocused ? theme.text : theme.inputBorder)};
+    ${({ theme, isFocused }) => (isFocused ? theme.text : theme.inputBorder)};  // 회색이다가 포커스 시 검은색으로 변하기
   border-radius: 4px;
 `;
 
@@ -56,23 +56,23 @@ const Input = forwardRef(
             onBlur();
           }}
           placeholder={placeholder}
-          returnkeyType={returnkeyType}
+          returnkeyType={returnkeyType}  // returnKeyType: 키보드 우측 하단에 있는 버튼을 어떤 타입으로 할 건지를 결정하는 prop
           maxLength={maxLength}
           autoCapitalize="none" // 자동 대문자 사용 안함
           autoCorrect={false} // 오타 자동 수정 모드 끄기
-          // textContentType="none" // 아이폰 키보드에 이메일 형식으로 나타나는 것 방지
-          isFocused={isFocused}
+          textContentType="none" // 아이폰 키보드에 이메일 형식으로 나타나는 것 방지
+          isFocused={isFocused}        // 포커스 상태인지 구분
           onFocus={() => setIsFocused(true)}
-          secureTextEntry={isPassword}
+          secureTextEntry={isPassword}   // 비밀번호 모드 - 입력문자 표시X
         />
       </Container>
     );
   }
 );
 
-Input.defaultProps = {
-  onBlur: () => {}, // ?
-};
+// Input.defaultProps = {
+//   onBlur: () => {}, // {}안에 나중에 수정 된 값을 넣기 편하도록 틀만 먼저 입력한것 같다
+// };  의미 없는 것 
 
 Input.propTypes = {
   label: PropTypes.string,

@@ -15,10 +15,10 @@ const Profile = ({ navigation, route }) => {
   return (
     <Container>
       {/* <Button title="signout" onPress={() => navigation.navigate("Signin")} />
-      signout 버튼을 누르면 Signin화면으로 넘어가기 */}
+      signout 버튼을 누르면 Signin화면으로 넘어가기 => 로그아웃 버튼으로 대체 */}
 
-      <Button title="signout" onPress={() => setUser({})} />
-
+      <Button title="Logout" onPress={() => setUser({})} />
+                                          {/* User.js에서 등록된 setUser = ({ uid })를 비우고 로그아웃 모드 */}
     </Container>
   );
 };

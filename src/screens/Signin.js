@@ -23,7 +23,8 @@ const Container = styled.View`
 
 export default function Signin({ navigation }) {
   const insets = useSafeAreaInsets();
-  // 정확힌 모르겠으나 헤더 대신 패딩을 넣는 ? 그런 용도인듯
+  // 헤더의 존재 대신 패딩을 넣어 여백을 준다 - Expo참고
+
   const theme = useContext(ThemeContext);
   const { setUser } = useContext(UserContext);
   const { spinner } = useContext(ProgressContext);
@@ -40,7 +41,7 @@ export default function Signin({ navigation }) {
   }, [email, password, errorMessage]);
 
   const _handleEmailChange = (email) => {
-    const changedEmail = removeWhitespace(email);
+    const changedEmail = removeWhitespace(email);  // removeWhitespace: utils.js파일에서 정의한 공백제거 함수
     setEmail(changedEmail);
     setErrorMessage(
       validateEmail(changedEmail) ? "" : "Please verify your email"
@@ -49,16 +50,17 @@ export default function Signin({ navigation }) {
   };
 
   const _handlePasswordChange = (password) => {
-    setPassword(removeWhitespace(password));
+    setPassword(removeWhitespace(password));  // removeWhitespace: utils.js파일에서 정의한 공백제거 함수
   };
 
-  const _handleSigninBtnPress = async () => {
-    try {
+  const _handleSigninBtnPress = async () => {  // 인풋 입력 후 로그인 실행
+    // try...catch 문법: 실행할 코드블럭을 표시하고 예외(exception)가 발생(throw)할 경우의 응답을 지정
+    try {  // 실행할 선언들
       spinner.start()
       const user = await signin({ email, password });
       setUser(user);
       // navigation.navigate("Profile", { user }); // Profile파일로 user정보 넘겨주기
-    } catch (e) {
+    } catch (e) {  // try블록에서 예외가 발생했을때 실행될 선언들
       Alert.alert("Signin Error", e.message);
     } finally {  // ES6문법: finally() 는 Promise 가 resolve(해결)되던 reject(거부)되던 상관없이 지정된 함수를 실행- 로그인 성공여부와 상관없이 실행
       spinner.stop();  // 로그인 성공여부와 상관없이 스피너 실행 정지 시키기
@@ -76,7 +78,7 @@ export default function Signin({ navigation }) {
           placeholder="user ID"
           returnkeyType="next"
           value={email}
-          onChangeText={_handleEmailChange}
+          onChangeText={_handleEmailChange}  // 아이디가 입력 될때 에러메세지 노출 실행
           onSubmitEditing={() => refPassword.current.focus()}
         />
         <Input

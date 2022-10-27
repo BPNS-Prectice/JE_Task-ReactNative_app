@@ -65,6 +65,8 @@ export default function Signup({ navigation }) {
 
   const _handleSignupBtnPress = async () => {
     // console.log("signup");
+
+    // try...catch 문법: 실행할 코드블럭을 표시하고 예외(exception)가 발생(throw)할 경우의 응답을 지정
     try {
       spinner.start();
       const user = await signup({ name, email, password });

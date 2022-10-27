@@ -10,11 +10,13 @@ const Navigation = () => {
   const { inProgress } = useContext(ProgressContext);
 
   return (
-    <NavigationContainer>
-      {user.uid ? <Main /> : <Auth />}
+    <NavigationContainer> 
+    {/* NavigationContainer: 앱 상태를 관리하고 최상위 네비게이터를 앱 환경에 연결하는 일을 담당 */}
+      {user.uid ? <Main /> : <Auth />} 
+      {/* 로그인 여부에 따라 다른 네비게이션이 이용 될 것 */}
       {inProgress && <Spinner />}  
       {/* // inProgress값에 따라 Spinner 컴포넌트 렌더링 */}
-    </NavigationContainer> // 로그인 여부에 따라 다른 네이게이션이 이용 될 것
+    </NavigationContainer> 
   );
 };
 

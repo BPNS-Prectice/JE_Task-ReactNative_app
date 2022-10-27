@@ -11,7 +11,9 @@ const Container = styled.View`
   background-color: ${({ theme }) => theme.spinnerBackground};
 `;
 
+
 const Indicator = styled.ActivityIndicator.attrs(({ theme }) => ({
+                      // ActivityIndicator: ReactNative공식 등록된 로딩 표시기 태그
   size: "large",
   color: theme.spinnerIndicator,
 }))``;
