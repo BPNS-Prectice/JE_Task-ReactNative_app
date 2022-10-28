@@ -26,6 +26,7 @@ const Auth = () => {
         name="Signup"
         component={Signup}
         options={{
+          title: '회원가입',
           headerTitleAlign: "center", // 헤더 제목 정렬
           headerBackTitleVisible: false,  // 뒤로 버튼 제목을 표시할지 여부(iOS에서만 지원)
           headerTinColor: theme.text,     // 헤더 텍스트 색상

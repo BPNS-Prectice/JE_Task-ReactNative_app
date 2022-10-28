@@ -11,7 +11,7 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <ProgressProvider>
         <UserProvider>
-          <StatusBar
+          <StatusBar  // 헤더
             backgroundColor={theme.background}
             barStyle="dark-content"
           />

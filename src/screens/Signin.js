@@ -3,13 +3,14 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { ThemeContext } from "styled-components";
 import styled from "styled-components";
-import { Button, Input, ErrorMessage } from "../components";
+import { Button, Input, ErrorMessage, loginButton } from "../components";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { signin } from "../firebase";
-import { Alert } from "react-native";
+import { Alert, View, Text } from "react-native";
 import { validateEmail, removeWhitespace } from "../utils";
 import { UserContext, ProgressContext } from "../contexts";
+import { Checkbox } from "react-native-paper";
 
 const Container = styled.View`
   flex: 1;
@@ -20,6 +21,16 @@ const Container = styled.View`
   padding-top: ${({ insets: { top } }) => top}px;
   padding-bottom: ${({ insets: { bottom } }) => bottom}px;
 `;
+
+const LoginTitle = styled.Text`
+  flex: 1;
+  font-size: 33px;
+  /* align-content: center; */
+  margin-top: 150px;
+  line-height: 50px;
+`;
+
+const ButtonBox = styled.View``;
 
 export default function Signin({ navigation }) {
   const insets = useSafeAreaInsets();
@@ -34,6 +45,7 @@ export default function Signin({ navigation }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [disabled, setDisabled] = useState(true);
   const refPassword = useRef(null);
+  const [checked, setChecked] = useState(false);
 
   useEffect(() => {
     // 버튼 활성화 조건
@@ -41,29 +53,35 @@ export default function Signin({ navigation }) {
   }, [email, password, errorMessage]);
 
   const _handleEmailChange = (email) => {
-    const changedEmail = removeWhitespace(email);  // removeWhitespace: utils.js파일에서 정의한 공백제거 함수
+    const changedEmail = removeWhitespace(email); // removeWhitespace: utils.js파일에서 정의한 공백제거 함수
     setEmail(changedEmail);
     setErrorMessage(
-      validateEmail(changedEmail) ? "" : "Please verify your email"
+      validateEmail(changedEmail) ? "" : "아이디를 형식에 맞게 정확히 입력해주세요"
       // 입력할때 이메일 형식이 아닌 경우 하단 에러메세지 노출
     );
   };
 
   const _handlePasswordChange = (password) => {
-    setPassword(removeWhitespace(password));  // removeWhitespace: utils.js파일에서 정의한 공백제거 함수
+    setPassword(removeWhitespace(password)); // removeWhitespace: utils.js파일에서 정의한 공백제거 함수
   };
 
-  const _handleSigninBtnPress = async () => {  // 인풋 입력 후 로그인 실행
+  const _handleSigninBtnPress = async () => {
+    // 인풋 입력 후 로그인 실행
     // try...catch 문법: 실행할 코드블럭을 표시하고 예외(exception)가 발생(throw)할 경우의 응답을 지정
-    try {  // 실행할 선언들
-      spinner.start()
+    try {
+      // 실행할 선언들
+      spinner.start();
       const user = await signin({ email, password });
       setUser(user);
       // navigation.navigate("Profile", { user }); // Profile파일로 user정보 넘겨주기
-    } catch (e) {  // try블록에서 예외가 발생했을때 실행될 선언들
-      Alert.alert("Signin Error", e.message);
-    } finally {  // ES6문법: finally() 는 Promise 가 resolve(해결)되던 reject(거부)되던 상관없이 지정된 함수를 실행- 로그인 성공여부와 상관없이 실행
-      spinner.stop();  // 로그인 성공여부와 상관없이 스피너 실행 정지 시키기
+    } catch (e) {
+      // try블록에서 예외가 발생했을때 실행될 선언들
+      // Alert.alert("Login Error", e.message);
+      Alert.alert("Login Error", "아이디와 비밀번호를 정확하게 입력해주세요");
+
+    } finally {
+      // ES6문법: finally() 는 Promise 가 resolve(해결)되던 reject(거부)되던 상관없이 지정된 함수를 실행- 로그인 성공여부와 상관없이 실행
+      spinner.stop(); // 로그인 성공여부와 상관없이 스피너 실행 정지 시키기
     }
   };
 
@@ -73,37 +91,62 @@ export default function Signin({ navigation }) {
       contentContainerStyle={{ flex: 1 }} // 화면 세로 중앙정렬
     >
       <Container insets={insets}>
+        <LoginTitle>제품 관리 시스템</LoginTitle>
+
         <Input
           label="ID"
-          placeholder="user ID"
+          placeholder="ID"
           returnkeyType="next"
           value={email}
-          onChangeText={_handleEmailChange}  // 아이디가 입력 될때 에러메세지 노출 실행
+          onChangeText={_handleEmailChange} // 아이디가 입력 될때 에러메세지 노출 실행
           onSubmitEditing={() => refPassword.current.focus()}
+          onBlur={() => setEmail(email.trim())} // trim() 메서드는 문자열 양 끝의 공백을 제거
         />
         <Input
           ref={refPassword}
           label="Password"
-          placeholder="user Password"
-          returnkeyType="done"
+          placeholder="Password"
+          returnkeyType="next"
           value={password}
           onChangeText={_handlePasswordChange}
           isPassword={true} // 비밀번호 입력 시 특수문자로 노출
           onSubmitEditing={_handleSigninBtnPress}
+          onBlur={() => setPassword(password.trim())} // trim() 메서드는 문자열 양 끝의 공백을 제거
         />
         <ErrorMessage message={errorMessage} />
-        <Button
-          title="Sign in"
-          onPress={_handleSigninBtnPress}
-          disabled={disabled}
-        />
-        {/* disabled : 비활성화 */}
-        <Button
-          title="or sign up"
-          onPress={() => navigation.navigate("Signup")}
-          containerStyle={{ marginTop: 0, backgroundColor: "transparent" }}
-          textStyle={{ color: theme.btnTextLink, fontSize: 18 }}
-        />
+        <View style={{ flexDirection: "row", width: "100%", height: 50 }}>
+          <Checkbox
+            status={checked ? "checked" : "unchecked"}
+            color= "#3f8aec"
+            onPress={() => {
+              setChecked(!checked);
+            }}
+          ></Checkbox>
+          <Text style={{ fontSize: 20, lineHeight: 30, marginLeft: 5 }}>
+            자동 로그인
+          </Text>
+        </View>
+        <ButtonBox
+          style={{
+            flexDirection: "row",
+            width: "100%",
+            flex: 1,
+          }}
+        >
+          <Button
+            title="회원가입"
+            onPress={() => navigation.navigate("Signup")}
+            // containerStyle={{ marginTop: 0, backgroundColor: "transparent" }}
+            // textStyle={{ color: theme.btnTextLink, fontSize: 18 }}
+          />
+          <Button
+            title="로그인"
+            onPress={_handleSigninBtnPress}
+            disabled={disabled}
+            style={{ flex: 1 }}
+          />
+          {/* disabled : 비활성화 */}
+        </ButtonBox>
       </Container>
     </KeyboardAwareScrollView>
   );

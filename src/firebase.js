@@ -22,8 +22,8 @@ export const signin = async ({ email, password }) => {
 // --------------------------------------------------------------------------------------
 
  
-export const signup = async ({ name, email, password }) => {
-  const { user } = await createUserWithEmailAndPassword(auth, email, password);   // 1. 유저 생성
+export const signup = async ({ name, email, password, introduce }) => {
+  const { user } = await createUserWithEmailAndPassword(auth, name, email, password, introduce);   // 1. 유저 생성
   await updateProfile(auth.currentUser, { displayName: name });    // 2. 생성된 유저의 updateProfile함수를 이용해서 displayName: name을 수정한다
   return user;  // 3. 완료되면 생성된 유저 반환
 };

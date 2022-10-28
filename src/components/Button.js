@@ -24,6 +24,20 @@ const Button = ({ title, onPress, containerStyle, textStyle, disabled }) => {
   return (
     <TouchableOpacity
       onPress={onPress}
+      style={{ flexDirection: "row", width: '50%', height: 70 }}
+      disabled={disabled}
+    >
+      <Container style={containerStyle} disabled={disabled}>
+        <Title style={textStyle}>{title}</Title>
+      </Container>
+    </TouchableOpacity>
+  );
+};
+
+const loginButton = ({ title, onPress, containerStyle, textStyle, disabled }) => {
+  return (
+    <TouchableOpacity
+      onPress={onPress}
       style={{ flexDirection: "row" }}
       disabled={disabled}
     >

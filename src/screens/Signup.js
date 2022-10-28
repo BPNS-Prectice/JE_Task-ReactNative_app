@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { Button, Input, ErrorMessage } from "../components";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { signup } from "../firebase";
-import { Alert } from "react-native";
+import { Alert, TextInput } from "react-native";
 import { async } from "@firebase/util";
 import { validateEmail, removeWhitespace } from "../utils";
 import { UserContext, ProgressContext } from "../contexts";
@@ -18,9 +18,11 @@ const Container = styled.View`
   padding: 50px 20px;
 `;
 
+const ButtonBox = styled.View``;
+
 export default function Signup({ navigation }) {
-  const {setUser} = useContext(UserContext)
-  const {spinner} = useContext(ProgressContext)
+  const { setUser } = useContext(UserContext);
+  const { spinner } = useContext(ProgressContext);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -28,10 +30,12 @@ export default function Signup({ navigation }) {
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [disabled, setDisabled] = useState(true);
+  const [introduce, setIntroduce] = useState("");
 
   const refEmail = useRef(null);
   const refPassword = useRef(null);
   const refPasswordConfirm = useRef(null);
+  const refIntroduce = useRef(null);
   const refDidMount = useRef(null); // 회원가입 에러 메세지가 처음부터 나오지 않게 하기 위한 코드
 
   useEffect(() => {
@@ -59,7 +63,7 @@ export default function Signup({ navigation }) {
       }
       setErrorMessage(error);
     } else {
-      refDidMount.current = true
+      refDidMount.current = true;
     }
   }, [email, name, password, passwordConfirm, errorMessage]);
 
@@ -69,10 +73,10 @@ export default function Signup({ navigation }) {
     // try...catch 문법: 실행할 코드블럭을 표시하고 예외(exception)가 발생(throw)할 경우의 응답을 지정
     try {
       spinner.start();
-      const user = await signup({ name, email, password });
+      const user = await signup({ name, email, password, introduce });
       setUser(user);
     } catch (e) {
-      Alert.alert("Signup Error", e.message);
+      Alert.alert('Signup Error', e.message);
     } finally {
       spinner.stop();
     }
@@ -82,7 +86,7 @@ export default function Signup({ navigation }) {
     <KeyboardAwareScrollView extraScrollHeight={20}>
       <Container>
         <Input
-          label="Name"
+          label="이름"
           placeholder="Name"
           returnkeyType="next"
           value={name}
@@ -93,7 +97,7 @@ export default function Signup({ navigation }) {
         />
         <Input
           ref={refEmail}
-          label="Email"
+          label="아이디"
           placeholder="Email"
           returnkeyType="next"
           value={email}
@@ -103,7 +107,7 @@ export default function Signup({ navigation }) {
         />
         <Input
           ref={refPassword}
-          label="Password"
+          label="비밀번호"
           placeholder="Password"
           returnkeyType="next"
           value={password}
@@ -114,21 +118,46 @@ export default function Signup({ navigation }) {
         />
         <Input
           ref={refPasswordConfirm}
-          label="Password 확인"
+          label="비밀번호 확인"
           placeholder="Password 확인"
-          returnkeyType="done"
+          returnkeyType="next"
           value={passwordConfirm}
           onChangeText={setPasswordConfirm}
           isPassword={true} // 비밀번호 입력 시 특수문자로 노출
-          onSubmitEditing={_handleSignupBtnPress}
+          onSubmitEditing={() => refIntroduce.current.focus()}
           onBlur={() => setPasswordConfirm(removeWhitespace(passwordConfirm))}
         />
         <ErrorMessage message={errorMessage} />
-        <Button
-          title="Sign in"
-          onPress={_handleSignupBtnPress}
-          disabled={disabled}
+        <Input
+          ref={refIntroduce}
+          label="소개"
+          placeholder="(선택) 간단 자기소개"
+          // returnkeyType="done"
+          returnkeyType= "go" 
+          value={introduce}
+          onChangeText={setIntroduce}
+          isPassword={false} // 비밀번호 입력 시 특수문자로 노출
+          onSubmitEditing={_handleSignupBtnPress}
+          onBlur={() => setIntroduce(removeWhitespace(passwordConfirm))}
+          style={{
+            height: "150",
+          }}
         />
+
+        <ButtonBox
+          style={{
+            flexDirection: "row",
+            width: "100%",
+            flex: 1,
+          }}
+        >
+          <Button title="뒤로가기" onPress={() => navigation.navigate("Signin")}/>
+          <Button
+            title="회원가입"
+            onPress={_handleSignupBtnPress}
+            disabled={disabled}
+          />
+        </ButtonBox>
       </Container>
     </KeyboardAwareScrollView>
   );

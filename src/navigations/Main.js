@@ -13,7 +13,7 @@ const Main = () => {
       screenOptions={{
         headerTitleAlign: "center",
         headerTintColor: theme.text,
-        headerBackTitleVisible: false,
+        headerBackTitleVisible: false,  // 뒤로 버튼 제목을 표시할지 여부(iOS에서만 지원)
         cardStyle: { backgroundColor: theme.background },
       }}
     >
