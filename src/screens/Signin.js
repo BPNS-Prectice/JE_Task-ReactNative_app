@@ -53,7 +53,7 @@ export default function Signin({ navigation }) {
   }, [email, password, errorMessage]);
 
   const _handleEmailChange = (email) => {
-    const changedEmail = removeWhitespace(email); // removeWhitespace: utils.js파일에서 정의한 공백제거 함수
+    const changedEmail = removeWhitespace(email); // removeWhitespace: utils.js파일에서 정의한 한글&공백제거 함수
     setEmail(changedEmail);
     setErrorMessage(
       validateEmail(changedEmail) ? "" : "아이디를 형식에 맞게 정확히 입력해주세요"

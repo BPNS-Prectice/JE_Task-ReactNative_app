@@ -1,16 +1,16 @@
 export const validateEmail = (email) => {
-  const spacesR =
+  const mailCK =
     /^[0-9?A-z0-9?]+(\.)?[0-9?A-z0-9?]+@[0-9?A-z]+\.[A-z]{2}.?[A-z]{0,3}$/;
-  return spacesR.test(email);
+  return mailCK.test(email);
 }; // 이메일 형식에 맞는 값인지 확인
 
 export const removeWhitespace = (text) => {
-  const spacesR = /\s/g;      // 공백제거
-  const IdCheck = /[(ㄱ-ㅎ가-힣ㅏ-ㅣ)]/g;   // 한글제거
+  // const spacesR = /\s/g;      // 공백제거
+  // const IdCheck = /[(ㄱ-ㅎ가-힣ㅏ-ㅣ)]/g;   // 한글제거
+  const IdCheck = /[(ㄱ-ㅎ가-힣ㅏ-ㅣ)||(\s)]/g; // 한글과 공백
   return (
-    text.replace( spacesR, ""),
-    text.replace(IdCheck, "" )
-    );
+    text.replace(IdCheck, "")
+  );
 
 }; 
 
