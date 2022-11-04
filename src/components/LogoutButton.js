@@ -24,7 +24,7 @@ const LogoutButton = ({ title, onPress, containerStyle, textStyle }) => {
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={{ flexDirection: "row", width: '30%', height: 60 }}
+      style={{ flexDirection: "row", width: '70%', height: 60 }}
     >
       <Container style={containerStyle} >
         <Title style={textStyle}>{title}</Title>

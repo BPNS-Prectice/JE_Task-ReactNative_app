@@ -4,10 +4,27 @@ import { Profile } from "../screens";
 import { ThemeContext } from "styled-components";
 import { LogoutButton } from "../components";
 
+import { UserContext } from "../contexts";
+import { View, StyleSheet, Button, Alert } from "react-native";
+
+
+
 const Stack = createStackNavigator();
 
 const Main = () => {
   const theme = useContext(ThemeContext);
+  const { setUser } = useContext(UserContext);
+
+  const logoutButtonAlert = () =>
+    Alert.alert(
+      "로그아웃 하시겠습니까?",
+      "",
+      [
+        { text: "Cancel" },
+        { text: "OK", onPress: () => setUser({}) }
+      ]
+    )
+
 
   return (
     <Stack.Navigator
@@ -18,10 +35,23 @@ const Main = () => {
         cardStyle: { backgroundColor: theme.background },
       }}
     >
-      <Stack.Screen name="Profile" component={Profile}>
-      {/* <LogoutButton title="Logout" onPress={() => setUser({})} />
-                                          User.js에서 등록된 setUser = ({ uid })를 비우고 로그아웃 모드 */}
-      </Stack.Screen>
+      <Stack.Screen 
+        name="Profile" 
+        component={Profile} 
+        options={{
+          headerRight: () => (
+            <LogoutButton
+              title="Logout" 
+              onPress={() => 
+                // setUser({})}       // User.js에서 등록된 setUser = ({ uid })를 비우고 로그아웃 모드
+                logoutButtonAlert()}     
+            />
+          ),
+        }}
+      />
+      
+         
+      
       
     </Stack.Navigator>
   );
