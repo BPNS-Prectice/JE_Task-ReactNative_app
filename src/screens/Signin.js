@@ -49,6 +49,7 @@ export default function Signin({ navigation }) {
   const { setUser } = useContext(UserContext);
   const { spinner } = useContext(ProgressContext);
 
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -59,8 +60,16 @@ export default function Signin({ navigation }) {
 
   useEffect(() => {
     // 버튼 활성화 조건
-    setDisabled(!(email && password && !errorMessage));
-  }, [email, password, errorMessage]);
+    setDisabled(!(name && email && password && !errorMessage));
+  }, [name, email, password, errorMessage]);
+
+  const _handleNameChange = (name) => {
+    // setName(changedName);
+    setErrorMessage(
+      name === '' ?  "이름을 입력해주세요" : null
+      // 이름을 입력하지 않은 경우 하단 에러메세지 노출
+    );
+  };
 
   const _handleEmailChange = (email) => {
     const changedEmail = removeWhitespace(email); // removeWhitespace: utils.js파일에서 정의한 한글&공백제거 함수
@@ -81,7 +90,7 @@ export default function Signin({ navigation }) {
     try {
       // 실행할 선언들
       spinner.start();
-      const user = await signin({ email, password });
+      const user = await signin({ name, email, password });
       setUser(user);
       // navigation.navigate("Profile", { user }); // Profile파일로 user정보 넘겨주기
     } catch (e) {

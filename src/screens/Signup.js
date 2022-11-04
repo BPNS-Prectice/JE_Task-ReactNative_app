@@ -64,11 +64,9 @@ export default function Signup({ navigation }) {
         error = "이메일을 입력해주세요";
       } else if (!validateEmail(email)) {
         error = "이메일을 형식에 맞게 입력해주세요";
-      } 
-      else if (!PwCheck.test(password)) {
+      } else if (!PwCheck.test(password)) {
         error = "비밀번호는 최소 8자리, 숫자,문자,특수문자 최소 1개 이상으로 설정해주세요";
-      } 
-      else if (password !== passwordConfirm) {
+      } else if (password !== passwordConfirm) {
         error = "비밀번호를 다시 확인해주세요";
       } else {
         error = "";
@@ -77,16 +75,16 @@ export default function Signup({ navigation }) {
     } else {
       refDidMount.current = true;
     }
-  }, [email, name, password, passwordConfirm, errorMessage]);
+  }, [name, email, password, passwordConfirm, errorMessage]);
 
   const _handleSignupBtnPress = async () => {
     // console.log("signup");
 
     // try...catch 문법: 실행할 코드블럭을 표시하고 예외(exception)가 발생(throw)할 경우의 응답을 지정
     try {
-      console.log('(' + email + ')')
+      console.log(email)
       spinner.start();
-      const user = await signup({ name, email, password, introduce });
+      const user = await signup({ email, name, password, introduce });
       setUser(user);
     } catch (e) {
       Alert.alert('Signup Error', e.message);
@@ -107,7 +105,7 @@ export default function Signup({ navigation }) {
           onChangeText={setName}
           onSubmitEditing={() => refEmail.current.focus()}
           onBlur={() => setName(name.trim())} // trim() 메서드는 문자열 양 끝의 공백을 제거
-          maxLength={12}
+          maxLength={20}
         />
         <Input
           ref={refEmail}

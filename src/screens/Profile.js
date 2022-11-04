@@ -2,8 +2,7 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import { Button } from "../components";
 import { UserContext } from "../contexts";
-// import LogoutButton from "../components";
-import { LogoutButton } from "../components";
+// import { LogoutButton } from "../components";
 
 const Container = styled.View`
   flex: 1;
