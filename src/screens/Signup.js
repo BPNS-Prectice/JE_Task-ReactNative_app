@@ -64,9 +64,11 @@ export default function Signup({ navigation }) {
         error = "이메일을 입력해주세요";
       } else if (!validateEmail(email)) {
         error = "이메일을 형식에 맞게 입력해주세요";
-      } else if (!PwCheck.test(refPassword.current.value)) {
+      } 
+      else if (!PwCheck.test(password)) {
         error = "비밀번호는 최소 8자리, 숫자,문자,특수문자 최소 1개 이상으로 설정해주세요";
-      } else if (password !== passwordConfirm) {
+      } 
+      else if (password !== passwordConfirm) {
         error = "비밀번호를 다시 확인해주세요";
       } else {
         error = "";
@@ -123,6 +125,10 @@ export default function Signup({ navigation }) {
           placeholder="최소 8자리, 숫자,문자,특수문자 최소 1개"
           returnkeyType="next"
           value={password}
+          // onChangeText={(text) => {
+          //   setPassword(text)
+          //   console.log(text)
+          // }}           // 이런식(하나에 두개 이상의 이벤트글 실행하는 구문)을 쓸땐 (인자)를 들고와야한다
           onChangeText={setPassword}
           isPassword={true} // 비밀번호 입력 시 특수문자로 노출
           onSubmitEditing={() => refPasswordConfirm.current.focus()}
@@ -150,7 +156,7 @@ export default function Signup({ navigation }) {
           onChangeText={setIntroduce}
           isPassword={false} // 비밀번호 입력 시 특수문자로 노출
           onSubmitEditing={_handleSignupBtnPress}
-          onBlur={() => setIntroduce(removeWhitespace(passwordConfirm))}
+          onBlur={() => setIntroduce()}
           style={{
             height: "150",
           }}

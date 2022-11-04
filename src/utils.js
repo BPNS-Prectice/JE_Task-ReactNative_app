@@ -14,6 +14,7 @@ export const removeWhitespace = (text) => {
 
 }; 
 
+
 // export const IdCheck = /[(ㄱ-ㅎ가-힣ㅏ-ㅣ)]/g;
 // 한글 입력 불가 기능
 
@@ -23,3 +24,6 @@ export const removeWhitespace = (text) => {
 // export const PwCheck =
 //   /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/g;
 // //최소 8자리, 숫자,문자,특수문자 최소 1개
+
+
+

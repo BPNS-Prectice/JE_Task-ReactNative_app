@@ -12,6 +12,15 @@ import { validateEmail, removeWhitespace } from "../utils";
 import { UserContext, ProgressContext } from "../contexts";
 import { Checkbox } from "react-native-paper";
 
+// import AsyncStorage from '@react-native-async-storage/async-storage';
+// import { useAsyncStorage } from '@react-native-async-storage/async-storage';
+// import AsyncStorage from 'react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+// import AsyncStorage from '@react-native-community/async-storage';
+
+
+
+
 const Container = styled.View`
   flex: 1;
   justify-content: center;
@@ -45,6 +54,7 @@ export default function Signin({ navigation }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [disabled, setDisabled] = useState(true);
   const refPassword = useRef(null);
+  // const refCheck = useRef(false);
   const [checked, setChecked] = useState(false);
 
   useEffect(() => {
@@ -116,6 +126,7 @@ export default function Signin({ navigation }) {
         <ErrorMessage message={errorMessage} />
         <View style={{ flexDirection: "row", width: "100%", height: 50 }}>
           <Checkbox
+            // ref={refCheck}
             status={checked ? "checked" : "unchecked"}
             color= "#3f8aec"
             onPress={() => {
@@ -141,7 +152,18 @@ export default function Signin({ navigation }) {
           />
           <Button
             title="로그인"
-            onPress={_handleSigninBtnPress}
+            onPress={() => {
+              _handleSigninBtnPress()
+
+              //체크박스 상태 파악해서 로컬스토리지 정보 저장하기
+              console.log(checked)
+
+              const userID = email;         
+              
+              checked ? 
+              AsyncStorage.setItem('UserID', userID)  // 로컬 스토리지에 유저 아이디 저장하기
+                : console.log('no')
+            }}
             disabled={disabled}
             style={{ flex: 1 }}
           />
