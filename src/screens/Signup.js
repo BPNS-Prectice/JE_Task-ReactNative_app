@@ -84,6 +84,7 @@ export default function Signup({ navigation }) {
     try {
       console.log(email)
       spinner.start();
+      // const user = await signup({ email, name, password, introduce });
       const user = await signup({ email, name, password, introduce });
       setUser(user);
     } catch (e) {
