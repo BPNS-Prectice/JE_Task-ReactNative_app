@@ -12,11 +12,8 @@ import { validateEmail, removeWhitespace } from "../utils";
 import { UserContext, ProgressContext } from "../contexts";
 import { Checkbox } from "react-native-paper";
 
-// import AsyncStorage from '@react-native-async-storage/async-storage';
-// import { useAsyncStorage } from '@react-native-async-storage/async-storage';
-// import AsyncStorage from 'react-native-async-storage/async-storage';
-import AsyncStorage from "@react-native-async-storage/async-storage";
-// import AsyncStorage from '@react-native-community/async-storage';
+
+
 
 
 
@@ -60,16 +57,17 @@ export default function Signin({ navigation }) {
 
   useEffect(() => {
     // 버튼 활성화 조건
-    setDisabled(!(name && email && password && !errorMessage));
-  }, [name, email, password, errorMessage]);
+    // setDisabled(!(name && email && password && !errorMessage));
+    setDisabled(!(email && password && !errorMessage));
+  }, [email, password, errorMessage]);
 
-  const _handleNameChange = (name) => {
-    // setName(changedName);
-    setErrorMessage(
-      name === '' ?  "이름을 입력해주세요" : null
-      // 이름을 입력하지 않은 경우 하단 에러메세지 노출
-    );
-  };
+  // const _handleNameChange = (name) => {
+  //   // setName(changedName);
+  //   setErrorMessage(
+  //     name === '' ?  "이름을 입력해주세요" : null
+  //     // 이름을 입력하지 않은 경우 하단 에러메세지 노출
+  //   );
+  // };
 
   const _handleEmailChange = (email) => {
     const changedEmail = removeWhitespace(email); // removeWhitespace: utils.js파일에서 정의한 한글&공백제거 함수
@@ -90,7 +88,7 @@ export default function Signin({ navigation }) {
     try {
       // 실행할 선언들
       spinner.start();
-      const user = await signin({ name, email, password });
+      const user = await signin({ email, password });
       setUser(user);
       // navigation.navigate("Profile", { user }); // Profile파일로 user정보 넘겨주기
     } catch (e) {
@@ -169,9 +167,9 @@ export default function Signin({ navigation }) {
 
               const userID = email;         
               
-              checked ? 
-              AsyncStorage.setItem('UserID', userID)  // 로컬 스토리지에 유저 아이디 저장하기
-                : console.log('no')
+              // checked ? 
+              // AsyncStorage.setItem('UserID', userID)  // 로컬 스토리지에 유저 아이디 저장하기
+              //   : console.log('no')
             }}
             disabled={disabled}
             style={{ flex: 1 }}

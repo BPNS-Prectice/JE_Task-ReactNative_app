@@ -4,7 +4,7 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 
 const Container = styled.View`
-  background-color: ${({ theme }) => theme.btnBackground};
+  border: ${({ theme }) => theme.btnBackground};
   padding: 10px;
   margin: 10px;
   flex: 1;
@@ -16,7 +16,7 @@ const Container = styled.View`
 
 const Title = styled.Text`
   font-size: 15px;
-  color: ${({ theme }) => theme.btnTitle};
+  color: ${({ theme }) => theme.btnBackground};
 `;
                                                
                                                            

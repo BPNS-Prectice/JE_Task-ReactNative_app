@@ -3,6 +3,9 @@ import Input from './Input';
 import ErrorMessage from "./ErrorMessage";
 import Spinner from "./Spinner";
 import LogoutButton from "./LogoutButton";
+import NewButton from "./NewMobal";
+import ModalButton from "./ModalButton";
+import TextInputBox from "./TextInputBox";
 
 
-export { Button, LogoutButton, Input, ErrorMessage, Spinner };
+export { Button, LogoutButton, ModalButton, NewButton, Input, TextInputBox, ErrorMessage, Spinner };

@@ -76,7 +76,7 @@ const Input = forwardRef(
 
 Input.propTypes = {
   label: PropTypes.string,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,   // isRequired : 필수값
   onChangeText: PropTypes.func,
   onSubmitEditing: PropTypes.func,
   onBlur: PropTypes.func,

@@ -10,7 +10,7 @@ const Container = styled.View`
 `;
 
 const Profile = ({ navigation, route }) => {
-  console.log(route.params)
+  // console.log(route.params)
   const { setUser } = useContext(UserContext);
 
   return (
