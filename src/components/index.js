@@ -6,6 +6,7 @@ import LogoutButton from "./LogoutButton";
 import NewButton from "./NewMobal";
 import ModalButton from "./ModalButton";
 import TextInputBox from "./TextInputBox";
+import UserList from "./UserList";
 
 
-export { Button, LogoutButton, ModalButton, NewButton, Input, TextInputBox, ErrorMessage, Spinner };
+export { Button, LogoutButton, ModalButton, NewButton, Input, TextInputBox, ErrorMessage, Spinner, UserList };

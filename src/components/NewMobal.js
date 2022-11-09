@@ -9,7 +9,7 @@ import {
   View,
   TouchableWithoutFeedback,
   Dimensions,
-  TextInput
+  TextInput,
 } from "react-native";
 import styled from "styled-components";
 import PropTypes from "prop-types";
@@ -18,6 +18,7 @@ import LogoutButton from "./LogoutButton";
 import ModalButton from "./ModalButton";
 // import { TextInput } from "react-native-gesture-handler";
 import TextInputBox from "./TextInputBox";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const Container = styled.View`
   background-color: ${({ theme }) => theme.btnBackground};
@@ -37,6 +38,7 @@ const Title = styled.Text`
 
 const ButtonBox = styled.View`
   flex-direction: row;
+  margin-top: 30px;
 `;
 
 const ModalTitle = styled.Text`
@@ -57,9 +59,10 @@ const TextInputBoxOuter = styled.View`
 
 const Explanation = styled.TextInput`
   border: 1px;
-  border-color: ${({theme}) => theme.btnBackground};
+  border-color: ${({ theme }) => theme.btnBackground};
   height: 150px;
-`
+  font-size: 18px;
+`;
 
 const NewButton = ({ title, containerStyle, textStyle }) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -83,30 +86,36 @@ const NewButton = ({ title, containerStyle, textStyle }) => {
           setModalVisible(!modalVisible);
         }}
       >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <ModalTitle>제품 정보</ModalTitle>
-            <TextInputBoxOuter>
-              <TextInputBox InputTitleText={"제품 ID"} />
-              <TextInputBox InputTitleText={"제품명"} />
-              <TextInputBox InputTitleText={"제조일자"} />
-              <TextInputBox InputTitleText={"등록일자"} />
-              <Text style={{ fontSize: 20, lineHeight: 50 }}>상세설명</Text>
-              <Explanation multiline={true}></Explanation>
-            </TextInputBoxOuter>
+        <KeyboardAwareScrollView>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <ModalTitle>제품 정보</ModalTitle>
+              <TextInputBoxOuter>
+                <TextInputBox InputTitleText={"제품 ID"} />
+                <TextInputBox InputTitleText={"제품명"} />
+                <TextInputBox InputTitleText={"제조일자"} />
+                <TextInputBox InputTitleText={"등록일자"} />
+                <Text style={{ fontSize: 20, lineHeight: 50 }}>상세설명</Text>
+                <Explanation
+                  multiline={true}
+                  textAlignVertical="top" // 첫줄부터 입력시작 (기본값은 center)
+                  styled={{ fontSize:'18px'}}
+                ></Explanation>
 
-            <ButtonBox>
-              <ModalButton
-                onPress={() => setModalVisible(!modalVisible)}
-                title="취소"
-              />
-              <ModalButton
-                onPress={() => setModalVisible(!modalVisible)}
-                title="등록"
-              />
-            </ButtonBox>
+                <ButtonBox>
+                  <ModalButton
+                    onPress={() => setModalVisible(!modalVisible)}
+                    title="취소"
+                  />
+                  <ModalButton
+                    onPress={() => setModalVisible(!modalVisible)}
+                    title="등록"
+                  />
+                </ButtonBox>
+              </TextInputBoxOuter>
+            </View>
           </View>
-        </View>
+        </KeyboardAwareScrollView>
       </Modal>
     </>
   );

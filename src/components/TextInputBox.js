@@ -24,6 +24,7 @@ const TextBox = styled.TextInput`
   height: 50px;
   margin: 10px 0;
   border-color: ${({ theme }) => theme.btnBackground};
+  font-size: 18px;
 `;
 
 const TextInputBox = ({ InputTitleText }) => {
