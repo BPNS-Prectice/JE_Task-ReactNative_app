@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Text, View, Dimensions, ScrollView } from "react-native";
 import styled from "styled-components";
 import PropTypes from "prop-types";
@@ -96,6 +96,25 @@ export default function UserList() {
       manager: "윤동주",
     },
   ]);
+
+  const nextId = useRef(5);
+
+  const onCreate = () => {
+    // 나중에 구현 할 배열에 항목 추가하는 로직
+
+
+
+    setInputs({
+      productID: '',
+      productName: '',
+      produce: '',
+      registration: '',
+      detail: '',
+      manager: '',
+    });
+
+    nextId.current += 1;
+  };
  
 
   return (

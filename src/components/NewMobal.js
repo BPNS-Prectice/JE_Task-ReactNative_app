@@ -19,6 +19,7 @@ import ModalButton from "./ModalButton";
 // import { TextInput } from "react-native-gesture-handler";
 import TextInputBox from "./TextInputBox";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import UserList from "./UserList";
 
 const Container = styled.View`
   background-color: ${({ theme }) => theme.btnBackground};
@@ -65,9 +66,8 @@ const Explanation = styled.TextInput`
   padding: 10px;
 `;
 
-
-const NewButton = ({ title, containerStyle, textStyle }) => {
-  const [modalVisible, setModalVisible] = useState(false);  // 모달창 열림 여부
+const NewButton = ({ title, containerStyle, textStyle, onCreate }) => {
+  const [modalVisible, setModalVisible] = useState(false); // 모달창 열림 여부
 
   // const refProductID = useRef(null);
   // const refProductName = useRef(null);
@@ -81,27 +81,23 @@ const NewButton = ({ title, containerStyle, textStyle }) => {
   // const [registration, setRegistration] = useState('')
   // const [detail, setdetail] = useState('')
 
-
-  
-const [inputs, setInputs] = useState({
-  productID,
-  productName,
-  produce,
-  registration,
-  detail
-});
-
-const { productID, productName, produce, registration, detail } = inputs; // 비구조화 할당을 통해 값 추출
-
-const onChangeText = (e) => {
-  const { value, name } = e.target; // 우선 e.target 에서 name 과 value 를 추출
-  setInputs({
-    ...inputs, // 기존의 input 객체를 복사한 뒤
-    [name]: value // name 키를 가진 값을 value 로 설정
+  const [inputs, setInputs] = useState({
+    productID,
+    productName,
+    produce,
+    registration,
+    detail,
   });
-};
 
+  const { productID, productName, produce, registration, detail } = inputs; // 비구조화 할당을 통해 값 추출
 
+  const onChangeText = (e) => {
+    const { value, name } = e.target; // 우선 e.target 에서 name 과 value 를 추출
+    setInputs({
+      ...inputs, // 기존의 input 객체를 복사한 뒤
+      [name]: value, // name 키를 가진 값을 value 로 설정
+    });
+  };
 
   return (
     <>
@@ -129,44 +125,44 @@ const onChangeText = (e) => {
               <ModalTitle>제품 정보</ModalTitle>
               <TextInputBoxOuter>
                 <TextInputBox
-                  name={'productID'}
+                  name={"productID"}
                   InputTitleText={"제품 ID"}
                   // ref={refProductID}
-                  placeholder={'제품고유 ID'}
+                  placeholder={"제품고유 ID"}
                   value={productID}
                   onChangeText={onChangeText}
-                  returnKyeType={'next'}
+                  returnKyeType={"next"}
                 />
                 <TextInputBox
-                  name={'productName'}
+                  name={"productName"}
                   InputTitleText={"제품명"}
                   // ref={refProductName}
-                  placeholder={'제품명을 입력해주세요'}
+                  placeholder={"제품명을 입력해주세요"}
                   value={productName}
                   onChangeText={onChangeText}
-                  returnKyeType={'next'}
+                  returnKyeType={"next"}
                 />
                 <TextInputBox
-                  name={'produce'}
+                  name={"produce"}
                   InputTitleText={"제조일자"}
                   // ref={refProduce}
-                  placeholder={'yyyy-mm-dd'}
+                  placeholder={"yyyy-mm-dd"}
                   value={produce}
                   onChangeText={onChangeText}
-                  returnKyeType={'next'}
+                  returnKyeType={"next"}
                 />
                 <TextInputBox
-                  name={'registration'}
+                  name={"registration"}
                   InputTitleText={"등록일자"}
                   // ref={refRegistration}
-                  placeholder={'yyyy-mm-dd'}
+                  placeholder={"yyyy-mm-dd"}
                   value={registration}
                   onChangeText={onChangeText}
-                  returnKyeType={'next'}
+                  returnKyeType={"next"}
                 />
                 <Text style={{ fontSize: 20, lineHeight: 50 }}>상세설명</Text>
                 <Explanation
-                  name={'detail'}
+                  name={"detail"}
                   // ref={refDetail}
                   value={detail}
                   multiline={true}
@@ -180,7 +176,8 @@ const onChangeText = (e) => {
                     title="취소"
                   />
                   <ModalButton
-                    onPress={() => setModalVisible(!modalVisible)}
+                    onCreate={onCreate} /////////////////////
+                    onPress={() => onCreate()}
                     title="등록"
                   />
                 </ButtonBox>

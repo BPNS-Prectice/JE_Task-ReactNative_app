@@ -92,7 +92,10 @@ const Main = () => {
                 onPress={() => logoutButtonAlert()}
               />
             ),
-            headerRight: () => <NewButton title="New" />,
+            headerRight: () => <NewButton 
+            title="New" 
+            // onCreate={onCreate}   //onCreate왜 안먹히는지 해결할것
+            />,
           }}
         />
       </Stack.Navigator>
