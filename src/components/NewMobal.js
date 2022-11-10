@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   TouchableOpacity,
   Alert,
@@ -62,10 +62,47 @@ const Explanation = styled.TextInput`
   border-color: ${({ theme }) => theme.btnBackground};
   height: 150px;
   font-size: 18px;
+  padding: 10px;
 `;
 
+
 const NewButton = ({ title, containerStyle, textStyle }) => {
-  const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);  // 모달창 열림 여부
+
+  // const refProductID = useRef(null);
+  // const refProductName = useRef(null);
+  // const refProduce = useRef(null);
+  // const refRegistration = useRef(null);
+  // const refDetail = useRef(null);
+
+  // const [productID, setProductID] = useState('')
+  // const [productName, setProductName] = useState('')
+  // const [produce, setProduce] = useState('')
+  // const [registration, setRegistration] = useState('')
+  // const [detail, setdetail] = useState('')
+
+
+  
+const [inputs, setInputs] = useState({
+  productID,
+  productName,
+  produce,
+  registration,
+  detail
+});
+
+const { productID, productName, produce, registration, detail } = inputs; // 비구조화 할당을 통해 값 추출
+
+const onChangeText = (e) => {
+  const { value, name } = e.target; // 우선 e.target 에서 name 과 value 를 추출
+  setInputs({
+    ...inputs, // 기존의 input 객체를 복사한 뒤
+    [name]: value // name 키를 가진 값을 value 로 설정
+  });
+};
+
+
+
   return (
     <>
       <TouchableOpacity
@@ -91,15 +128,50 @@ const NewButton = ({ title, containerStyle, textStyle }) => {
             <View style={styles.modalView}>
               <ModalTitle>제품 정보</ModalTitle>
               <TextInputBoxOuter>
-                <TextInputBox InputTitleText={"제품 ID"} />
-                <TextInputBox InputTitleText={"제품명"} />
-                <TextInputBox InputTitleText={"제조일자"} />
-                <TextInputBox InputTitleText={"등록일자"} />
+                <TextInputBox
+                  name={'productID'}
+                  InputTitleText={"제품 ID"}
+                  // ref={refProductID}
+                  placeholder={'제품고유 ID'}
+                  value={productID}
+                  onChangeText={onChangeText}
+                  returnKyeType={'next'}
+                />
+                <TextInputBox
+                  name={'productName'}
+                  InputTitleText={"제품명"}
+                  // ref={refProductName}
+                  placeholder={'제품명을 입력해주세요'}
+                  value={productName}
+                  onChangeText={onChangeText}
+                  returnKyeType={'next'}
+                />
+                <TextInputBox
+                  name={'produce'}
+                  InputTitleText={"제조일자"}
+                  // ref={refProduce}
+                  placeholder={'yyyy-mm-dd'}
+                  value={produce}
+                  onChangeText={onChangeText}
+                  returnKyeType={'next'}
+                />
+                <TextInputBox
+                  name={'registration'}
+                  InputTitleText={"등록일자"}
+                  // ref={refRegistration}
+                  placeholder={'yyyy-mm-dd'}
+                  value={registration}
+                  onChangeText={onChangeText}
+                  returnKyeType={'next'}
+                />
                 <Text style={{ fontSize: 20, lineHeight: 50 }}>상세설명</Text>
                 <Explanation
+                  name={'detail'}
+                  // ref={refDetail}
+                  value={detail}
                   multiline={true}
                   textAlignVertical="top" // 첫줄부터 입력시작 (기본값은 center)
-                  styled={{ fontSize:'18px'}}
+                  styled={{ fontSize: "18px" }}
                 ></Explanation>
 
                 <ButtonBox>

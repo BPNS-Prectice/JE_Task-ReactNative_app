@@ -31,44 +31,44 @@ const Main = () => {
   `;
 
 
-const [ List, setList ] = useState([                 
-  {
-    id: 1,
-    productID: 'BPSOLUTION01',
-    productName: '제품명01',
-    produce: '2022-09-01',
-    registration: '2022-09-01',
-    detail: "상세설명01 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, quod!",
-    manager: '홍길동'
-  },
-  {
-    id: 2,
-    productID: 'BPSOLUTION02',
-    productName: '제품명02',
-    produce: '2022-09-02',
-    registration: '2022-09-02',
-    detail: '상세설명02 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed minima quisquam quia.',
-    manager: '아인슈타인'
-  },
-  {
-    id: 3,
-    productID: 'BPSOLUTION03',
-    productName: '제품명03',
-    produce: '2022-09-03',
-    registration: '2022-09-03',
-    detail: '상세설명03 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolor, quis corrupti.',
-    manager: '엘렌워커'
-  },
-  {
-    id: 4,
-    productID: 'BPSOLUTION04',
-    productName: '제품명04',
-    produce: '2022-09-04',
-    registration: '2022-09-04',
-    detail: '상세설명04 Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi.',
-    manager: '윤동주'
-  },
-])
+// const [ List, setList ] = useState([                 
+//   {
+//     id: 1,
+//     productID: 'BPSOLUTION01',
+//     productName: '제품명01',
+//     produce: '2022-09-01',
+//     registration: '2022-09-01',
+//     detail: "상세설명01 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, quod!",
+//     manager: '홍길동'
+//   },
+//   {
+//     id: 2,
+//     productID: 'BPSOLUTION02',
+//     productName: '제품명02',
+//     produce: '2022-09-02',
+//     registration: '2022-09-02',
+//     detail: '상세설명02 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed minima quisquam quia.',
+//     manager: '아인슈타인'
+//   },
+//   {
+//     id: 3,
+//     productID: 'BPSOLUTION03',
+//     productName: '제품명03',
+//     produce: '2022-09-03',
+//     registration: '2022-09-03',
+//     detail: '상세설명03 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolor, quis corrupti.',
+//     manager: '엘렌워커'
+//   },
+//   {
+//     id: 4,
+//     productID: 'BPSOLUTION04',
+//     productName: '제품명04',
+//     produce: '2022-09-04',
+//     registration: '2022-09-04',
+//     detail: '상세설명04 Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi.',
+//     manager: '윤동주'
+//   },
+// ])
  
 
   return (
@@ -99,13 +99,8 @@ const [ List, setList ] = useState([
 
       <MainWindow>
         <UserList 
-          productID = 'fdsf'
-          productName = 'fdsf'
-          produce = 'fdsf'
-          registration = 'fdsf'
-        />
-        <UserList 
-          List={List}
+          // List={List}
+          key={id}
         />
       </MainWindow>
     </>
