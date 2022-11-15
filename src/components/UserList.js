@@ -3,11 +3,10 @@ import { Text, View, Dimensions, ScrollView } from "react-native";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-
-
 function User({ user }) {
+// function User({ productID, productName, produce, registration }) {
   const windowWidth = Dimensions.get("window").width;
-  const windowHeight = Dimensions.get('window').height;
+  const windowHeight = Dimensions.get("window").height;
 
   const OuterContainer = styled.View`
     align-items: flex-start;
@@ -41,37 +40,46 @@ function User({ user }) {
       <Container>
         <TitleText>제품 ID : </TitleText>
         <ValueText>{user.productID}</ValueText>
+        {/* <ValueText>{productID}</ValueText> */}
       </Container>
 
       <Container>
         <TitleText>제품명 : </TitleText>
         <ValueText>{user.productName}</ValueText>
+        {/* <ValueText>{productName}</ValueText> */}
       </Container>
 
       <Container>
         <TitleText>제조일자 : </TitleText>
         <ValueText>{user.produce}</ValueText>
+        {/* <ValueText>{produce}</ValueText> */}
       </Container>
 
       <Container>
         <TitleText>등록일자 : </TitleText>
         <ValueText>{user.registration}</ValueText>
+        {/* <ValueText>{registration}</ValueText> */}
       </Container>
     </OuterContainer>
   );
 }
 
-
 export default function UserList({ users }) {
-  
   return (
     <>
+      {/* {users.map((user, { productID, productName, produce, registration }) => ( */}
       {users.map((user) => (
-          <User user={user} key={user.id} />
-          )
-        )}
+        // <User user={user} key={user.id} />
+        <User
+          user={user}
+          key={user.id}
+          // productID={user.productID}
+          // productName={user.productName}
+          // produce={user.produce}
+          // registration={user.registration}
+        />
+      ))}
     </>
   );
 }
 
-// export default UserList;

@@ -66,7 +66,7 @@ const Explanation = styled.TextInput`
   padding: 10px;
 `;
 
-const NewButton = ({ title, containerStyle, textStyle, productID, productName, produce, registration, detail, onCreate, onChangeText, }) => {
+const NewButton = ({ title, containerStyle, textStyle, productID, productName, produce, registration, detail, onCreate, onChange }) => {
   const [modalVisible, setModalVisible] = useState(false); // 모달창 열림 여부
 
   // const refProductID = useRef(null);
@@ -106,39 +106,39 @@ const NewButton = ({ title, containerStyle, textStyle, productID, productName, p
                   // ref={refProductID}
                   placeholder={"제품고유 ID"}
                   value={productID}
-                  onChangeText={onChangeText}
+                  onChange={onChange}
                   returnKyeType={"next"}
                 />
                 <TextInputBox
-                  name={"productName"}
+                  name="productName"
                   InputTitleText={"제품명"}
                   // ref={refProductName}
                   placeholder={"제품명을 입력해주세요"}
                   value={productName}
-                  onChangeText={onChangeText}
+                  onChange={onChange}
                   returnKyeType={"next"}
                 />
                 <TextInputBox
-                  name={"produce"}
+                  name="produce"
                   InputTitleText={"제조일자"}
                   // ref={refProduce}
                   placeholder={"yyyy-mm-dd"}
                   value={produce}
-                  onChangeText={onChangeText}
+                  onChange={onChange}
                   returnKyeType={"next"}
                 />
                 <TextInputBox
-                  name={"registration"}
+                  name="registration"
                   InputTitleText={"등록일자"}
                   // ref={refRegistration}
                   placeholder={"yyyy-mm-dd"}
                   value={registration}
-                  onChangeText={onChangeText}
+                  onChange={onChange}
                   returnKyeType={"next"}
                 />
                 <Text style={{ fontSize: 20, lineHeight: 50 }}>상세설명</Text>
                 <Explanation
-                  name={"detail"}
+                  name="detail"
                   // ref={refDetail}
                   value={detail}
                   multiline={true}
