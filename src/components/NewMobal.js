@@ -66,7 +66,7 @@ const Explanation = styled.TextInput`
   padding: 10px;
 `;
 
-const NewButton = ({ title, containerStyle, textStyle, productID, productName, produce, registration, detail, onCreate, onChangeText, }) => {
+const NewButton = ({ title, containerStyle, textStyle, productID, productName, produce, registration, detail, onCreate, onChange, }) => {
   const [modalVisible, setModalVisible] = useState(false); // 모달창 열림 여부
 
   // const refProductID = useRef(null);
@@ -105,8 +105,8 @@ const NewButton = ({ title, containerStyle, textStyle, productID, productName, p
                   InputTitleText={"제품 ID"}
                   // ref={refProductID}
                   placeholder={"제품고유 ID"}
+                  onChangeText={(e) => onChange("productID", e)}
                   value={productID}
-                  onChangeText={onChangeText}
                   returnKyeType={"next"}
                 />
                 <TextInputBox
@@ -114,8 +114,9 @@ const NewButton = ({ title, containerStyle, textStyle, productID, productName, p
                   InputTitleText={"제품명"}
                   // ref={refProductName}
                   placeholder={"제품명을 입력해주세요"}
+                  // onChangeText={onChangeText}
+                  onChangeText={(e) => onChange("productName", e)}
                   value={productName}
-                  onChangeText={onChangeText}
                   returnKyeType={"next"}
                 />
                 <TextInputBox
@@ -123,8 +124,9 @@ const NewButton = ({ title, containerStyle, textStyle, productID, productName, p
                   InputTitleText={"제조일자"}
                   // ref={refProduce}
                   placeholder={"yyyy-mm-dd"}
+                  // onChangeText={onChangeText}
+                  onChangeText={(e) => onChange("produce", e)}
                   value={produce}
-                  onChangeText={onChangeText}
                   returnKyeType={"next"}
                 />
                 <TextInputBox
@@ -132,8 +134,9 @@ const NewButton = ({ title, containerStyle, textStyle, productID, productName, p
                   InputTitleText={"등록일자"}
                   // ref={refRegistration}
                   placeholder={"yyyy-mm-dd"}
+                  // onChangeText={onChangeText}
+                  onChangeText={(e) => onChange("registration", e)}
                   value={registration}
-                  onChangeText={onChangeText}
                   returnKyeType={"next"}
                 />
                 <Text style={{ fontSize: 20, lineHeight: 50 }}>상세설명</Text>
