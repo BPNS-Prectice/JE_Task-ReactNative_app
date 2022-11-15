@@ -66,7 +66,7 @@ const Explanation = styled.TextInput`
   padding: 10px;
 `;
 
-const NewButton = ({ title, containerStyle, textStyle, onCreate }) => {
+const NewButton = ({ title, containerStyle, textStyle, productID, productName, produce, registration, detail, onCreate, onChangeText, }) => {
   const [modalVisible, setModalVisible] = useState(false); // 모달창 열림 여부
 
   // const refProductID = useRef(null);
@@ -74,31 +74,7 @@ const NewButton = ({ title, containerStyle, textStyle, onCreate }) => {
   // const refProduce = useRef(null);
   // const refRegistration = useRef(null);
   // const refDetail = useRef(null);
-
-  // const [productID, setProductID] = useState('')
-  // const [productName, setProductName] = useState('')
-  // const [produce, setProduce] = useState('')
-  // const [registration, setRegistration] = useState('')
-  // const [detail, setdetail] = useState('')
-
-  const [inputs, setInputs] = useState({
-    productID,
-    productName,
-    produce,
-    registration,
-    detail,
-  });
-
-  const { productID, productName, produce, registration, detail } = inputs; // 비구조화 할당을 통해 값 추출
-
-  const onChangeText = (e) => {
-    const { value, name } = e.target; // 우선 e.target 에서 name 과 value 를 추출
-    setInputs({
-      ...inputs, // 기존의 input 객체를 복사한 뒤
-      [name]: value, // name 키를 가진 값을 value 로 설정
-    });
-  };
-
+  
   return (
     <>
       <TouchableOpacity
@@ -176,8 +152,11 @@ const NewButton = ({ title, containerStyle, textStyle, onCreate }) => {
                     title="취소"
                   />
                   <ModalButton
-                    onCreate={onCreate} /////////////////////
-                    onPress={() => onCreate()}
+                    // onCreate={onCreate} /////////////////////
+                    onPress={() => {
+                      onCreate()
+                      setModalVisible(!modalVisible)
+                    }}
                     title="등록"
                   />
                 </ButtonBox>
