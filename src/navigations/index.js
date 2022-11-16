@@ -18,7 +18,7 @@ const Navigation = () => {
       {inProgress && <Spinner />}  
       {/* // inProgress값에 따라 Spinner 컴포넌트 렌더링 */}
     </NavigationContainer> 
-  );0
+  );
 };
 
 export default Navigation;
