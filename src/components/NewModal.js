@@ -98,13 +98,14 @@ const NewButton = ({ title, containerStyle, textStyle, productID, productName, p
         <KeyboardAwareScrollView>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              <ModalTitle>제품 정보</ModalTitle>
+              <ModalTitle>제품 신규 등록</ModalTitle>
               <TextInputBoxOuter>
                 <TextInputBox
                   name={"productID"}
                   InputTitleText={"제품 ID"}
                   // ref={refProductID}
                   placeholder={"제품고유 ID"}
+                  // onChangeText={(e) => onChange("productID", e)}
                   onChangeText={(e) => onChange("productID", e)}
                   value={productID}
                   returnKyeType={"next"}
