@@ -28,7 +28,7 @@ const Main = () => {
   const MainWindow = styled.ScrollView`
     /* flex: 1; */
     /* height: 100%; */
-    border-top: 1px;
+    border-top: 1px solid #333;
     /* flex: 10;  // 이렇게 해도 맞는걸까..? */
     /* margin-top: 100px; */
     /* height: ${(height) => windowHeight - 20}px; */
@@ -55,18 +55,25 @@ const Main = () => {
 
   const { productID, productName, produce, registration, detail, manager } = inputs; // 비구조화 할당을 통해 값 추출
 
-  const onChange = event => setInputs(event.nativeEvent.text);
+  // const onChange = event => setInputs(event.nativeEvent.text);
+  const onChange = (keyvalue, text) => {
+  // const onChange = (e) => {
+    // const {text} = e.nativeEvent
+    console.log(productID)
+    // const { value, name } = e.target; // 우선 e.target 에서 name 과 value 를 추출
+    setInputs({
+      ...inputs, // 기존의 input 객체를 복사한 뒤
+      // [name]: value, // name 키를 가진 값을 value 로 설정
+      [keyvalue]: text
+    });
+  };
   // const onChange = (keyvalue, e) => {
-  // // const onChange = (e) => {
-  //   const {text} = e.nativeEvent
-  //   console.log(productID)
-  //   // const { value, name } = e.target; // 우선 e.target 에서 name 과 value 를 추출
+  //   const { text } = t.nativeEvent;
   //   setInputs({
-  //     ...inputs, // 기존의 input 객체를 복사한 뒤
-  //     // [name]: value, // name 키를 가진 값을 value 로 설정
+  //     ...inputs,
   //     [keyvalue]: text
-  //   });
-  // };
+  //   })
+  // }
 
 
   const [ users, setUsers ] = useState([                 
@@ -173,7 +180,7 @@ const Main = () => {
               detail={detail}
               manager={manager}
               onChange={onChange}
-              onCreate={onCreate} 
+              // onCreate={onCreate} 
             />,
           }}
         />

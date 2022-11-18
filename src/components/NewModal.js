@@ -66,7 +66,7 @@ const Explanation = styled.TextInput`
   padding: 10px;
 `;
 
-const NewButton = ({ title, containerStyle, textStyle, productID, productName, produce, registration, detail, onCreate, onChange, }) => {
+const NewButton = ({ title, containerStyle, textStyle, productID, productName, produce, registration, detail, onChange, onCreate }) => {
   const [modalVisible, setModalVisible] = useState(false); // 모달창 열림 여부
 
   // const refProductID = useRef(null);
@@ -90,10 +90,10 @@ const NewButton = ({ title, containerStyle, textStyle, productID, productName, p
         animationType="slide" // 아래에서 위로 나타나는 효과
         transparent={true} // 모달창 전체화면 채움 여부(투명창)
         visible={modalVisible} // 모달창 표시 여부
-        onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
-          setModalVisible(!modalVisible);
-        }}
+        // onRequestClose={() => {
+        //   Alert.alert("Modal has been closed.");
+        //   setModalVisible(!modalVisible);
+        // }}
       >
         <KeyboardAwareScrollView>
           <View style={styles.centeredView}>
@@ -106,9 +106,11 @@ const NewButton = ({ title, containerStyle, textStyle, productID, productName, p
                   // ref={refProductID}
                   placeholder={"제품고유 ID"}
                   // onChangeText={(e) => onChange("productID", e)}
-                  onChangeText={(e) => onChange("productID", e)}
+                  onChangeText={(text) => onChange("productID", text)}
+                  // onChange={(t) => onChange("productID", t)}
+                  // onChange={(e) => onChange("productID", e)}
                   value={productID}
-                  returnKyeType={"next"}
+                  returnKyeType={"next"}  // **수정필요
                 />
                 <TextInputBox
                   name={"productName"}
@@ -116,7 +118,7 @@ const NewButton = ({ title, containerStyle, textStyle, productID, productName, p
                   // ref={refProductName}
                   placeholder={"제품명을 입력해주세요"}
                   // onChangeText={onChangeText}
-                  onChangeText={(e) => onChange("productName", e)}
+                  onChangeText={(text) => onChange("productName", text)}
                   value={productName}
                   returnKyeType={"next"}
                 />
@@ -126,7 +128,7 @@ const NewButton = ({ title, containerStyle, textStyle, productID, productName, p
                   // ref={refProduce}
                   placeholder={"yyyy-mm-dd"}
                   // onChangeText={onChangeText}
-                  onChangeText={(e) => onChange("produce", e)}
+                  onChangeText={(text) => onChange("produce", text)}
                   value={produce}
                   returnKyeType={"next"}
                 />
@@ -136,7 +138,7 @@ const NewButton = ({ title, containerStyle, textStyle, productID, productName, p
                   // ref={refRegistration}
                   placeholder={"yyyy-mm-dd"}
                   // onChangeText={onChangeText}
-                  onChangeText={(e) => onChange("registration", e)}
+                  onChangeText={(text) => onChange("registration", text)}
                   value={registration}
                   returnKyeType={"next"}
                 />
