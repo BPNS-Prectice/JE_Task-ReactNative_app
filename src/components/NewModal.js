@@ -66,7 +66,7 @@ const Explanation = styled.TextInput`
   padding: 10px;
 `;
 
-const NewButton = ({ title, containerStyle, textStyle, productID, productName, produce, registration, detail, onChange, onCreate }) => {
+const NewButton = ({ keyvalue, title, containerStyle, textStyle, productID, productName, produce, registration, detail, onChange, onCreate }) => {
   const [modalVisible, setModalVisible] = useState(false); // 모달창 열림 여부
 
   // const refProductID = useRef(null);
@@ -106,11 +106,16 @@ const NewButton = ({ title, containerStyle, textStyle, productID, productName, p
                   // ref={refProductID}
                   placeholder={"제품고유 ID"}
                   // onChangeText={(e) => onChange("productID", e)}
+                  // onChangeText={(text) => {
+                  //   onChange("productID", text)
+                  //   console.log(e)
+                  // }}
+                  // onChange={onChange}
+                  // onChange={(keyvalue) => onChange("productID", keyvalue)}
                   onChangeText={(text) => onChange("productID", text)}
-                  // onChange={(t) => onChange("productID", t)}
                   // onChange={(e) => onChange("productID", e)}
                   value={productID}
-                  returnKyeType={"next"}  // **수정필요
+                  // returnKyeType={"next"}  // **수정필요
                 />
                 <TextInputBox
                   name={"productName"}
@@ -119,10 +124,11 @@ const NewButton = ({ title, containerStyle, textStyle, productID, productName, p
                   placeholder={"제품명을 입력해주세요"}
                   // onChangeText={onChangeText}
                   onChangeText={(text) => onChange("productName", text)}
+                  onChange={onChange}
                   value={productName}
                   returnKyeType={"next"}
                 />
-                <TextInputBox
+                {/* <TextInputBox
                   name={"produce"}
                   InputTitleText={"제조일자"}
                   // ref={refProduce}
@@ -150,7 +156,7 @@ const NewButton = ({ title, containerStyle, textStyle, productID, productName, p
                   multiline={true}
                   textAlignVertical="top" // 첫줄부터 입력시작 (기본값은 center)
                   styled={{ fontSize: "18px" }}
-                ></Explanation>
+                ></Explanation> */}
 
                 <ButtonBox>
                   <ModalButton

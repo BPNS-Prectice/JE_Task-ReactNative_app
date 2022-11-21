@@ -34,6 +34,7 @@ const TextInputBox = ({
   InputTitleText,
   returnKyeType,
   placeholder,
+  onChangeText,
   value,
 }) => {
   return (
@@ -43,7 +44,7 @@ const TextInputBox = ({
         // ref={ref}
         placeholder={placeholder}
         value={value}
-        // onChangeText={onChangeText}
+        onChangeText={onChangeText}
         returnKyeType={returnKyeType}
         autoCapitalize="none" // 자동 대문자 사용 안함
         autoCorrect={false} // 오타 자동 수정 모드 끄기

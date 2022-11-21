@@ -38,13 +38,7 @@ const Main = () => {
 
 
 
-  const [inputs, setInputs] = useState({
-    // productID: undefined,
-    // productName: undefined,
-    // produce: undefined,
-    // registration: undefined,
-    // detail: undefined,
-    // manager: undefined,
+  const [inputs, setInputs] = useState({ 
     productID: '',
     productName: '',
     produce: '',
@@ -56,24 +50,39 @@ const Main = () => {
   const { productID, productName, produce, registration, detail, manager } = inputs; // 비구조화 할당을 통해 값 추출
 
   // const onChange = event => setInputs(event.nativeEvent.text);
+  // const onChange = (keyvalue, text) => {
+  // const onChange = (event) => {
+  // // const onChange = (e) => {
+  //   // const {text} = e.nativeEvent
+  //   setInputs(event.nativeEvent.text)
+    
+  //   console.log(event.nativeEvent.text)
+  //   // const { value, name } = e.target; // 우선 e.target 에서 name 과 value 를 추출
+  //   // setInputs({
+  //   //   ...inputs, // 기존의 input 객체를 복사한 뒤
+  //   //   // [name]: value, // name 키를 가진 값의 value 로 설정
+  //   //   [keyvalue]: text
+  //   // });
+  // };
   const onChange = (keyvalue, text) => {
-  // const onChange = (e) => {
-    // const {text} = e.nativeEvent
-    console.log(productID)
-    // const { value, name } = e.target; // 우선 e.target 에서 name 과 value 를 추출
+    // const { text } = t.nativeEvent;
     setInputs({
-      ...inputs, // 기존의 input 객체를 복사한 뒤
-      // [name]: value, // name 키를 가진 값을 value 로 설정
+      ...inputs,
       [keyvalue]: text
-    });
-  };
-  // const onChange = (keyvalue, e) => {
+    })
+
+    // alert(inputs[keyvalue]);
+    console.log(keyvalue, inputs[keyvalue])
+  }
+  // const onChange = (name, t) => {
   //   const { text } = t.nativeEvent;
   //   setInputs({
   //     ...inputs,
-  //     [keyvalue]: text
-  //   })
-  // }
+  //     // [keyvalue]: text
+  //     [name]: text
+  //   });
+  //   console.log([keyvalue].text)
+  // };
 
 
   const [ users, setUsers ] = useState([                 
@@ -171,17 +180,17 @@ const Main = () => {
               />
             ),
             headerRight: () => 
-            <NewButton 
-              title="New" 
-              productID={productID}
-              productName={productName}
-              produce={produce}
-              registration={registration}
-              detail={detail}
-              manager={manager}
-              onChange={onChange}
-              // onCreate={onCreate} 
-            />,
+              (<NewButton 
+                title="New" 
+                productID={inputs.productID}
+                productName={productName}
+                produce={produce}
+                registration={registration}
+                detail={detail}
+                manager={manager}
+                onChange={onChange}
+                onCreate={onCreate} 
+              />),
           }}
         />
       </Stack.Navigator>
