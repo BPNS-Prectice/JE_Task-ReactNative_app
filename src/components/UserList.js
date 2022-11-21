@@ -12,7 +12,6 @@ export default function UserList({ users }) {
   const [showModal, setShowModal] = useState(false); // 리스트 모달창이 보이고 안보이는 상태관리
   const [activeObject, setActiveObject] = useState(null); // 모달창에 들어갈 리스트 내용 요소-기본적으로 모달창이 보이지 않기 때문에 아무것도 없는 null상태
 
-
   const OuterContainer = styled.Pressable`
     align-items: flex-start;
     justify-content: center;
@@ -41,9 +40,8 @@ export default function UserList({ users }) {
   `;
 
   const onModalClose = () => {
-    setShowModal(false)
-  }
-
+    setShowModal(false);
+  };
 
   return (
     <>
@@ -58,13 +56,20 @@ export default function UserList({ users }) {
           manager,
         }) => (
           <OuterContainer
-            key={id} 
+            key={id}
             onPress={() => {
               console.log(`(ID:${id}) 모달 열림`);
-              setActiveObject({ id, productID, productName, produce, registration, detail, manager, //onRemove, onUpdate, onChange,
-              });    // 모달창에 들어갈 리스트에 포함된 내용&이벤트 요소 : 원래값 null 이다가 오픈할때 내용 속성값들 받아옴
-              setShowModal(true)
-            }} 
+              setActiveObject({
+                id,
+                productID,
+                productName,
+                produce,
+                registration,
+                detail,
+                manager, //onRemove, onUpdate, onChange,
+              }); // 모달창에 들어갈 리스트에 포함된 내용&이벤트 요소 : 원래값 null 이다가 오픈할때 내용 속성값들 받아옴
+              setShowModal(true);
+            }}
           >
             <Container>
               <TitleText>제품 ID : </TitleText>
@@ -89,9 +94,12 @@ export default function UserList({ users }) {
         )
       )}
 
-      
       {showModal ? (
-        <ListModal onModalClose={onModalClose} />
+        <ListModal 
+          onModalClose={onModalClose} 
+          object={activeObject} 
+          setShowModal={setShowModal}
+        />
       ) : null}
 
       {/* // 수정버튼 클릭 이벤트 */}
