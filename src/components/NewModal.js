@@ -105,15 +105,7 @@ const NewButton = ({ keyvalue, title, containerStyle, textStyle, productID, prod
                   InputTitleText={"제품 ID"}
                   // ref={refProductID}
                   placeholder={"제품고유 ID"}
-                  // onChangeText={(e) => onChange("productID", e)}
-                  // onChangeText={(text) => {
-                  //   onChange("productID", text)
-                  //   console.log(e)
-                  // }}
-                  // onChange={onChange}
-                  // onChange={(keyvalue) => onChange("productID", keyvalue)}
                   onChangeText={(text) => onChange("productID", text)}
-                  // onChange={(e) => onChange("productID", e)}
                   value={productID}
                   // returnKyeType={"next"}  // **수정필요
                 />
@@ -128,7 +120,7 @@ const NewButton = ({ keyvalue, title, containerStyle, textStyle, productID, prod
                   value={productName}
                   returnKyeType={"next"}
                 />
-                {/* <TextInputBox
+                <TextInputBox
                   name={"produce"}
                   InputTitleText={"제조일자"}
                   // ref={refProduce}
@@ -153,10 +145,11 @@ const NewButton = ({ keyvalue, title, containerStyle, textStyle, productID, prod
                   name={"detail"}
                   // ref={refDetail}
                   value={detail}
+                  onChangeText={(text) => onChange("detail", text)}
                   multiline={true}
                   textAlignVertical="top" // 첫줄부터 입력시작 (기본값은 center)
                   styled={{ fontSize: "18px" }}
-                ></Explanation> */}
+                ></Explanation>
 
                 <ButtonBox>
                   <ModalButton

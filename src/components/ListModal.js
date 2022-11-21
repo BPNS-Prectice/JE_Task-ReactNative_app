@@ -18,6 +18,7 @@ import LogoutButton from "./LogoutButton";
 import ModalButton from "./ModalButton";
 // import { TextInput } from "react-native-gesture-handler";
 import TextInputBox from "./TextInputBox";
+import TextDivBox from "./TextDivBox";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 // import UserList from "./UserList";
 
@@ -76,14 +77,33 @@ const Explanation = styled.TextInput`
   padding: 10px;
 `;
 
-const ListModal = ({ id, title, containerStyle, textStyle, productID, productName, produce, registration, detail, onCreate, onChange, onModalClose }) => {
+// const ListModal = ({ id, title, containerStyle, textStyle, productID, productName, produce, registration, detail, onCreate, onChange, onModalClose }) => {
+const ListModal = ({ productID, productName, produce, registration, detail, onCreate, onChange }) => {
+// const ListModal = ({ productID }) => {
   const [modalVisible, setModalVisible] = useState(true); // 모달창 열림 여부
+  const [editingMode, setEditingMode] = useState(false)        // 수정모드에 진입했는지 여부 (수정버튼 클릭 시)
+  // const [ editingInputs, setEditingInputs ] = useState(inputs, {       // 수정값 반영 요소들 // 수정 상태 입력 폼
+  //   productID: '',                                   
+  //   productName: '',
+  //   produce: '',
+  //   registration: '',
+  //   detail: '',
+  //   manager: ''
+  // })
 
-  // const refProductID = useRef(null);
-  // const refProductName = useRef(null);
-  // const refProduce = useRef(null);
-  // const refRegistration = useRef(null);
-  // const refDetail = useRef(null);
+  // const { productID, productName, produce, registration, detail, manager } = editingInputs; 
+ 
+  // const [ editing, setEditing ] = useState({     // 기존값 들고 와서 수정 시 값이 바뀌는걸 반영해줌 
+  //   id: id,       // 기준값            
+  //   productID: productID,
+  //   productName: productName,
+  //   produce: produce,
+  //   registration: registration,
+  //   detail: detail,
+  //   manager: manager
+  // })
+
+   
   
   return (
     <>
@@ -111,7 +131,8 @@ const ListModal = ({ id, title, containerStyle, textStyle, productID, productNam
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               <ModalTitle>제품 정보</ModalTitle>
-              <TextInputBoxOuter>
+              {/* {editingMode ?  */}
+              {/* <TextInputBoxOuter>
                 <TextInputBox
                   name={"productID"}
                   InputTitleText={"제품 ID"}
@@ -161,13 +182,7 @@ const ListModal = ({ id, title, containerStyle, textStyle, productID, productNam
                   styled={{ fontSize: "18px" }}
                 ></Explanation>
 
-                <ButtonBox>
-                  <ModalButton
-                    onPress={() => {
-                      onCreate()
-                    }}
-                    title="삭제"
-                  />
+                <ButtonBox> 
                   <ModalButton
                     onPress={() => {
                       onCreate()
@@ -177,10 +192,57 @@ const ListModal = ({ id, title, containerStyle, textStyle, productID, productNam
                   <ModalButton
                     // onPress={() => setModalVisible(!modalVisible)}
                     onPress={onModalClose}
-                    title="확인"
+                    title="취소"
                   />
                 </ButtonBox>
               </TextInputBoxOuter>
+              :  */}
+              <TextInputBoxOuter key={id}>
+                <TextDivBox 
+                  name='productID' 
+                  // onChange={_handleChange}
+                  value={productID}
+                /> 
+                <TextDivBox 
+                  name='productName' 
+                  // onChange={_handleChange}
+                  value={productName}
+                /> 
+                <TextDivBox 
+                  name='produce' 
+                  // onChange={_handleChange}
+                  value={produce}
+                /> 
+                <TextDivBox 
+                  name='registration' 
+                  // onChange={_handleChange}
+                  value={registration}
+                />  
+                <Text style={{ fontSize: 20, lineHeight: 50 }}>상세설명</Text>
+                <Explanation
+                  name={"detail"}
+                  value={detail}
+                ></Explanation>
+
+                <ButtonBox>
+                  <ModalButton
+                    onPress={() => {
+                      onCreate()
+                    }}
+                    title="삭제"
+                  />
+                  <ModalButton
+                    onPress={() => {
+                      setEditingMode(true)
+                    }}
+                    title="수정"
+                  />
+                  <ModalButton
+                    onPress={setModalVisible(false)}
+                    title="확인"
+                  />
+                </ButtonBox>
+              </TextInputBoxOuter> } 
             </View>
           </View>
         </KeyboardAwareScrollView>
