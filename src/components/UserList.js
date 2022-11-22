@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { Text, View, Dimensions, ScrollView } from "react-native";
+import { Text, View, Dimensions, ScrollView, Alert } from "react-native";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 // import NewButton from "./NewModal";
@@ -98,7 +98,7 @@ export default function UserList({ users }) {
         <ListModal 
           onModalClose={onModalClose} 
           object={activeObject} 
-          setShowModal={setShowModal}
+          // setShowModal={setShowModal}
         />
       ) : null}
 
