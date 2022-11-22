@@ -147,15 +147,15 @@ const Main = () => {
     ))
   }
 
-  const _handleChange = (e) => {
-    const {name, value} = e.target
-    setEditing(pre => {
-      return {
-        ...pre,
-        [ name ]: value
-      }
-    })
-  } 
+  // const _handleChange = (e) => {
+  //   const {name, value} = e.target
+  //   setEditing(pre => {
+  //     return {
+  //       ...pre,
+  //       [ name ]: value
+  //     }
+  //   })
+  // } 
 
   return (
     <>
@@ -187,6 +187,7 @@ const Main = () => {
                 registration={registration}
                 detail={detail}
                 manager={manager}
+                onChange={onChange}
                 onCreate={onCreate} 
               />
           }}
@@ -199,7 +200,7 @@ const Main = () => {
           onUpdate={onUpdate}
           // onChangeText={onChangeText}
           // _handleChange={onChange}
-          onChange={_handleChange}
+          // onChange={_handleChange}
         />
       </MainWindow>
     </>

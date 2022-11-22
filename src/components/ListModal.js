@@ -202,7 +202,7 @@ const ListModal = ({
                     value={editing.detail}
                     multiline={true}
                     textAlignVertical="top" // 첫줄부터 입력시작 (기본값은 center)
-                    onChangeText={(e) => _handleChange("registration", e)}
+                    onChangeText={(e) => _handleChange("detail", e)}
                     styled={{ fontSize: "18px" }}
                   ></Explanation>
 
