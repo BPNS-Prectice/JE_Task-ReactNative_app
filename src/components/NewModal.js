@@ -66,7 +66,7 @@ const Explanation = styled.TextInput`
   padding: 10px;
 `;
 
-const NewButton = ({ title, containerStyle, textStyle, productID, productName, produce, registration, detail, onCreate, onChange }) => {
+const NewButton = ({ keyvalue, title, containerStyle, textStyle, productID, productName, produce, registration, detail, onChange, onCreate }) => {
   const [modalVisible, setModalVisible] = useState(false); // 모달창 열림 여부
 
   // const refProductID = useRef(null);
@@ -90,57 +90,62 @@ const NewButton = ({ title, containerStyle, textStyle, productID, productName, p
         animationType="slide" // 아래에서 위로 나타나는 효과
         transparent={true} // 모달창 전체화면 채움 여부(투명창)
         visible={modalVisible} // 모달창 표시 여부
-        onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
-          setModalVisible(!modalVisible);
-        }}
+        // onRequestClose={() => {
+        //   Alert.alert("Modal has been closed.");
+        //   setModalVisible(!modalVisible);
+        // }}
       >
         <KeyboardAwareScrollView>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              <ModalTitle>제품 정보</ModalTitle>
+              <ModalTitle>제품 신규 등록</ModalTitle>
               <TextInputBoxOuter>
                 <TextInputBox
                   name={"productID"}
                   InputTitleText={"제품 ID"}
                   // ref={refProductID}
                   placeholder={"제품고유 ID"}
+                  onChangeText={(text) => onChange("productID", text)}
                   value={productID}
-                  onChange={onChange}
-                  returnKyeType={"next"}
+                  // returnKyeType={"next"}  // **수정필요
                 />
                 <TextInputBox
-                  name="productName"
+                  name={"productName"}
                   InputTitleText={"제품명"}
                   // ref={refProductName}
                   placeholder={"제품명을 입력해주세요"}
-                  value={productName}
+                  // onChangeText={onChangeText}
+                  onChangeText={(text) => onChange("productName", text)}
                   onChange={onChange}
+                  value={productName}
                   returnKyeType={"next"}
                 />
                 <TextInputBox
-                  name="produce"
+                  name={"produce"}
                   InputTitleText={"제조일자"}
                   // ref={refProduce}
                   placeholder={"yyyy-mm-dd"}
+                  // onChangeText={onChangeText}
+                  onChangeText={(text) => onChange("produce", text)}
                   value={produce}
-                  onChange={onChange}
                   returnKyeType={"next"}
                 />
                 <TextInputBox
-                  name="registration"
+                  name={"registration"}
                   InputTitleText={"등록일자"}
                   // ref={refRegistration}
                   placeholder={"yyyy-mm-dd"}
+                  // onChangeText={onChangeText}
+                  onChangeText={(text) => onChange("registration", text)}
                   value={registration}
-                  onChange={onChange}
                   returnKyeType={"next"}
                 />
                 <Text style={{ fontSize: 20, lineHeight: 50 }}>상세설명</Text>
                 <Explanation
-                  name="detail"
+                  name={"detail"}
                   // ref={refDetail}
                   value={detail}
+                  onChangeText={(text) => onChange("detail", text)}
                   multiline={true}
                   textAlignVertical="top" // 첫줄부터 입력시작 (기본값은 center)
                   styled={{ fontSize: "18px" }}

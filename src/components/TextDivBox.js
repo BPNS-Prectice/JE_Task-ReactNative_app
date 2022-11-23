@@ -20,37 +20,32 @@ const InputTitle = styled.Text`
   line-height: 50px;
 `;
 
-const TextBox = styled.TextInput`
-  border: 1px;
+const TextBox = styled.Text`
+  /* border: 1px; */
   width: ${({ width }) => windowWidth - 200}px;
   height: 50px;
   margin: 10px 0;
-  border-color: ${({ theme }) => theme.btnBackground};
+  /* border-color: ${({ theme }) => theme.btnBackground}; */
   font-size: 18px;
   padding-left: 15px;
 `;
 
-const TextInputBox = ({
+const TextDivBox = ({
   InputTitleText,
   returnKyeType,
   placeholder,
   onChangeText,
   value,
+  inputs,
+  keyvalue,
 }) => {
   return (
     <Outer>
       <InputTitle>{InputTitleText}</InputTitle>
-      <TextBox
-        // ref={ref}
-        placeholder={placeholder}
-        value={value}
-        onChangeText={onChangeText}
-        returnKyeType={returnKyeType}
-        autoCapitalize="none" // 자동 대문자 사용 안함
-        autoCorrect={false} // 오타 자동 수정 모드 끄기
-      />
+      {/* <TextBox>{keyvalue, inputs[keyvalue]}</TextBox> */}
+      <TextBox>{value}</TextBox>
     </Outer>
   );
 };
 
-export default TextInputBox;
+export default TextDivBox;

@@ -1,14 +1,18 @@
 import React, { useState, useRef } from "react";
-import { Text, View, Dimensions, ScrollView } from "react-native";
+import { Text, View, Dimensions, ScrollView, Alert } from "react-native";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+// import NewButton from "./NewModal";
+import ListModal from "./ListModal";
 
-function User({ user }) {
-// function User({ productID, productName, produce, registration }) {
+export default function UserList({ users, onUpdate }) {
   const windowWidth = Dimensions.get("window").width;
   const windowHeight = Dimensions.get("window").height;
 
-  const OuterContainer = styled.View`
+  const [showModal, setShowModal] = useState(false); // 리스트 모달창이 보이고 안보이는 상태관리
+  const [activeObject, setActiveObject] = useState(null); // 모달창에 들어갈 리스트 내용 요소-기본적으로 모달창이 보이지 않기 때문에 아무것도 없는 null상태
+
+  const OuterContainer = styled.Pressable`
     align-items: flex-start;
     justify-content: center;
     margin: 10px auto;
@@ -35,51 +39,103 @@ function User({ user }) {
     line-height: 25px;
   `;
 
-  return (
-    <OuterContainer>
-      <Container>
-        <TitleText>제품 ID : </TitleText>
-        <ValueText>{user.productID}</ValueText>
-        {/* <ValueText>{productID}</ValueText> */}
-      </Container>
+  const onModalClose = () => {
+    setShowModal(false);
+  };
 
-      <Container>
-        <TitleText>제품명 : </TitleText>
-        <ValueText>{user.productName}</ValueText>
-        {/* <ValueText>{productName}</ValueText> */}
-      </Container>
+  const handleEditing = (event, data) => {
+    onUpdate(data.id, {
+      productID: data.productID,
+      name: data.name,
+      produce: data.produce,
+      registration: data.registration,
+      detail: data.detail,
+      manager: data.manager,
+    });
+    setActiveObject((pre) => ({
+      ...pre, // 일단 전체 내용을 다 불러오고**
+      productID: data.productID, // 그 중에 바뀐 값을 업데이트 한다
+      name: data.name,
+      produce: data.produce,
+      registration: data.registration,
+      detail: data.detail,
+      manager: data.manager,
+    })); // 모달창의 값을 업데이트
+    alert("수정되었습니다");
+    // setEditingMode(!editingMode);
+  };
 
-      <Container>
-        <TitleText>제조일자 : </TitleText>
-        <ValueText>{user.produce}</ValueText>
-        {/* <ValueText>{produce}</ValueText> */}
-      </Container>
-
-      <Container>
-        <TitleText>등록일자 : </TitleText>
-        <ValueText>{user.registration}</ValueText>
-        {/* <ValueText>{registration}</ValueText> */}
-      </Container>
-    </OuterContainer>
-  );
-}
-
-export default function UserList({ users }) {
   return (
     <>
-      {/* {users.map((user, { productID, productName, produce, registration }) => ( */}
-      {users.map((user) => (
-        // <User user={user} key={user.id} />
-        <User
-          user={user}
-          key={user.id}
-          // productID={user.productID}
-          // productName={user.productName}
-          // produce={user.produce}
-          // registration={user.registration}
+      {users.map(
+        ({
+          id,
+          productID,
+          productName,
+          produce,
+          registration,
+          detail,
+          manager,
+        }) => (
+          <OuterContainer
+            key={id}
+            onPress={() => {
+              console.log(`(ID:${id}) 모달 열림`);
+              setActiveObject({
+                id,
+                productID,
+                productName,
+                produce,
+                registration,
+                detail,
+                manager, //onRemove, 
+                onUpdate,
+                // _handleChange,
+                // onChange,
+              }); // 모달창에 들어갈 리스트에 포함된 내용&이벤트 요소 : 원래값 null 이다가 오픈할때 내용 속성값들 받아옴
+              setShowModal(true);
+            }}
+          >
+            <Container>
+              <TitleText>제품 ID : </TitleText>
+              <ValueText>{productID}</ValueText>
+            </Container>
+
+            <Container>
+              <TitleText>제품명 : </TitleText>
+              <ValueText>{productName}</ValueText>
+            </Container>
+
+            <Container>
+              <TitleText>제조일자 : </TitleText>
+              <ValueText>{produce}</ValueText>
+            </Container>
+
+            <Container>
+              <TitleText>등록일자 : </TitleText>
+              <ValueText>{registration}</ValueText>
+            </Container>
+          </OuterContainer>
+        )
+      )}
+
+      {showModal ? (
+        <ListModal
+          onModalClose={onModalClose}
+          object={activeObject}
+          onAccept={handleEditing}
         />
-      ))}
+      ) : null}
+
+      {/* // 수정버튼 클릭 이벤트 */}
+      {/* {showModal ? (
+        // <Modal object={activeObject} onAccept={handleToggleEdit} />
+        <ListModal />
+      ) : null} */}
+      {/* 모달창 표시 부분 : 상태관리를 통해 노출 결정 */}
+      {/* // 모달창에 들어갈 리스트 내용 요소 */}
     </>
   );
 }
 
+// export default UserList;
