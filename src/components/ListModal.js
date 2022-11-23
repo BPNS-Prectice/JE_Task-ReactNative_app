@@ -84,12 +84,13 @@ const ListModal = ({
     registration,
     detail,
     manager,
-    onRemove,
   },
   onModalClose,
   onUpdate,
   onChangeText,
+  onRemove,
   // _handleChange,
+  users,
   onAccept,
 }) => {
   const [modalVisible, setModalVisible] = useState(true); // 모달창 열림 여부
@@ -210,7 +211,11 @@ const ListModal = ({
                     <ModalButton
                       // onPress={() => setModalVisible(!modalVisible)}
                       // onPress={onModalClose}
-                      onPress={() => setEditingMode(false)}
+                      onPress={() => {
+                        setEditingMode(false)
+                        // return users(${id});
+                        onModalClose()
+                      }}
                       title="취소"
                     />
                     <ModalButton
@@ -254,9 +259,7 @@ const ListModal = ({
 
                   <ButtonBox>
                     <ModalButton
-                      onPress={() => {
-                        onCreate();
-                      }}
+                      onPress={() => onRemove(id)}
                       title="삭제"
                     />
                     <ModalButton

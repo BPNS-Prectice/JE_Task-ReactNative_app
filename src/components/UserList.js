@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 // import NewButton from "./NewModal";
 import ListModal from "./ListModal";
 
-export default function UserList({ users, onUpdate }) {
+export default function UserList({ users, onUpdate, onRemove }) {
   const windowWidth = Dimensions.get("window").width;
   const windowHeight = Dimensions.get("window").height;
 
@@ -46,7 +46,7 @@ export default function UserList({ users, onUpdate }) {
   const handleEditing = (event, data) => {
     onUpdate(data.id, {
       productID: data.productID,
-      name: data.name,
+      productName: data.productName,
       produce: data.produce,
       registration: data.registration,
       detail: data.detail,
@@ -55,7 +55,7 @@ export default function UserList({ users, onUpdate }) {
     setActiveObject((pre) => ({
       ...pre, // 일단 전체 내용을 다 불러오고**
       productID: data.productID, // 그 중에 바뀐 값을 업데이트 한다
-      name: data.name,
+      productName: data.productName,
       produce: data.produce,
       registration: data.registration,
       detail: data.detail,
@@ -64,6 +64,8 @@ export default function UserList({ users, onUpdate }) {
     alert("수정되었습니다");
     // setEditingMode(!editingMode);
   };
+
+
 
   return (
     <>
@@ -88,8 +90,9 @@ export default function UserList({ users, onUpdate }) {
                 produce,
                 registration,
                 detail,
-                manager, //onRemove, 
+                manager, 
                 onUpdate,
+                onRemove, 
                 // _handleChange,
                 // onChange,
               }); // 모달창에 들어갈 리스트에 포함된 내용&이벤트 요소 : 원래값 null 이다가 오픈할때 내용 속성값들 받아옴
@@ -124,6 +127,7 @@ export default function UserList({ users, onUpdate }) {
           onModalClose={onModalClose}
           object={activeObject}
           onAccept={handleEditing}
+          onRemove={onRemove}
         />
       ) : null}
 

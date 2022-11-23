@@ -7,6 +7,7 @@ import { LogoutButton, NewButton, UserList } from "../components";
 import { UserContext } from "../contexts";
 import { View, StyleSheet, Button, Alert, Text, Dimensions } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
+import ListModal from "../components/ListModal";
 
 const Stack = createStackNavigator();
 
@@ -98,12 +99,12 @@ const Main = () => {
     },
     {
       id: 5,
-      productID: 'BPSOLUTION04',
-      productName: '제품명04',
-      produce: '2022-09-04',
-      registration: '2022-09-04',
-      detail: '상세설명04 Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi.',
-      manager: '윤동주'
+      productID: 'BPSOLUTION05',
+      productName: '제품명05',
+      produce: '2022-09-05',
+      registration: '2022-09-05',
+      detail: '상세설명05 Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi.',
+      manager: '김철수'
     },
   ])
   
@@ -157,6 +158,22 @@ const Main = () => {
   //   })
   // } 
 
+  
+  const onRemove = (id) => {
+    // 현재 삭제 버튼을 클릭한 리스트의 아이디값을 받아옴
+
+    // if(window.confirm('해당 내용을 삭제 하시겠습니까?')) {
+    setUsers(users.filter(user => user.id !== id))
+    // user.id 가 파라미터로 일치하지 않는 원소만 추출해서 새로운 배열을 만듬
+    // = user.id 가 id 인 것을 제거함
+
+    console.log(`ID:${id} 삭제완료`) 
+    alert('삭제되었습니다')
+    // } else {
+    //   console.log('삭제 요청 취소') 
+    // }
+  }
+
   return (
     <>
       <Stack.Navigator
@@ -198,9 +215,7 @@ const Main = () => {
         <UserList 
           users={users} 
           onUpdate={onUpdate}
-          // onChangeText={onChangeText}
-          // _handleChange={onChange}
-          // onChange={_handleChange}
+          onRemove={onRemove}
         />
       </MainWindow>
     </>
