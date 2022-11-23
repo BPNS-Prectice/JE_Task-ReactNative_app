@@ -159,19 +159,41 @@ const Main = () => {
   // } 
 
   
-  const onRemove = (id) => {
-    // 현재 삭제 버튼을 클릭한 리스트의 아이디값을 받아옴
+  // const onRemove = (id) => {
+  //   // 현재 삭제 버튼을 클릭한 리스트의 아이디값을 받아옴
 
-    // if(window.confirm('해당 내용을 삭제 하시겠습니까?')) {
-    setUsers(users.filter(user => user.id !== id))
-    // user.id 가 파라미터로 일치하지 않는 원소만 추출해서 새로운 배열을 만듬
-    // = user.id 가 id 인 것을 제거함
+  //   // if(window.confirm('해당 내용을 삭제 하시겠습니까?')) {
+  //   setUsers(users.filter(user => user.id !== id))
+  //   // user.id 가 파라미터로 일치하지 않는 원소만 추출해서 새로운 배열을 만듬
+  //   // = user.id 가 id 인 것을 제거함
 
-    console.log(`ID:${id} 삭제완료`) 
-    alert('삭제되었습니다')
-    // } else {
-    //   console.log('삭제 요청 취소') 
-    // }
+  //   console.log(`ID:${id} 삭제완료`) 
+  //   alert('삭제되었습니다')
+  //   // } else {
+  //   //   console.log('삭제 요청 취소') 
+  //   // }
+  // }
+
+
+  const onRemove = (id) => { 
+    Alert.alert(
+      "삭제",
+      "해당 항목을 삭제 하시겠습니까?",
+      [ 
+        {
+          text: "취소",
+          onPress: () => console.log("삭제 취소"),
+        },
+        { text: "확인", onPress: () => {
+          setUsers(users.filter(user => user.id !== id)) 
+          console.log(`ID:${id} 삭제완료`) 
+          alert('삭제되었습니다') 
+          }
+        }
+      ]
+    );
+
+    
   }
 
   return (
@@ -216,7 +238,7 @@ const Main = () => {
           users={users} 
           onUpdate={onUpdate}
           onRemove={onRemove}
-        />
+          />
       </MainWindow>
     </>
   );
