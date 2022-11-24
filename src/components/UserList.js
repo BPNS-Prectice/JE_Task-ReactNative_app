@@ -95,7 +95,7 @@ export default function UserList({ users, onUpdate, onRemove }) {
                 onRemove, 
                 // _handleChange,
                 // onChange,
-              }); // 모달창에 들어갈 리스트에 포함된 내용&이벤트 요소 : 원래값 null 이다가 오픈할때 내용 속성값들 받아옴
+              }); // 모달창에 들어갈 리스트에 포함된 내용&이벤트 요소 : 원래값 null이다가 오픈할때 내용 속성값들 받아옴
               setShowModal(true);
             }}
           >
@@ -122,22 +122,16 @@ export default function UserList({ users, onUpdate, onRemove }) {
         )
       )}
 
-      {showModal ? (
+      {showModal ? (                  // 모달창 표시 부분 : 상태관리를 통해 노출 결정
         <ListModal
-          onModalClose={onModalClose}
-          object={activeObject}
-          onAccept={handleEditing}
-          onRemove={onRemove}
+          onModalClose={onModalClose} // 모달창 닫기(+회색 배경 포함)
+          object={activeObject}       // 모달창에 들어갈 리스트 내용 요소
+          onAccept={handleEditing}    // 수정버튼 클릭 이벤트
+          onRemove={onRemove}         // 인풋창 비우기
         />
       ) : null}
 
-      {/* // 수정버튼 클릭 이벤트 */}
-      {/* {showModal ? (
-        // <Modal object={activeObject} onAccept={handleToggleEdit} />
-        <ListModal />
-      ) : null} */}
-      {/* 모달창 표시 부분 : 상태관리를 통해 노출 결정 */}
-      {/* // 모달창에 들어갈 리스트 내용 요소 */}
+       
     </>
   );
 }

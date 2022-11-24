@@ -36,12 +36,14 @@ const TextInputBox = ({
   placeholder,
   onChangeText,
   value,
+  ref,
 }) => {
   return (
     <Outer>
       <InputTitle>{InputTitleText}</InputTitle>
       <TextBox
         // ref={ref}
+        ref={ref}
         placeholder={placeholder}
         value={value}
         onChangeText={onChangeText}

@@ -50,12 +50,6 @@ const ModalTitle = styled.Text`
   padding: 10px;
 `;
 
-// const backgroundFilter = styled.View`
-//   background-color: gray;
-//   position: absolute;
-//   flex: 1;
-// `;
-
 const TextInputBoxOuter = styled.View`
   flex: 1;
   padding: 15px;
@@ -75,7 +69,7 @@ const Explanation_T = styled.TextInput`
   padding: 10px 0;
 `;
 
-const ListModal = ({
+const ListModal = ({ inputs,
   object: {
     id,
     productID,
@@ -96,24 +90,55 @@ const ListModal = ({
   const [modalVisible, setModalVisible] = useState(true); // 모달창 열림 여부
   const [editingMode, setEditingMode] = useState(false); // 수정모드에 진입했는지 여부 (수정버튼 클릭 시)
 
-  // const [ editingInputs, setEditingInputs ] = useState(users, {       // 수정값 반영 요소들 // 수정 상태 입력 폼
-  //   productID: '',
-  //   productName: '',
-  //   produce: '',
-  //   registration: '',
-  //   detail: '',
-  //   manager: ''
-  // })
-
-  // const { productName, produce, registration, detail, manager } = editingInputs;      // 구조분해할당문법
-
   const ModalFilter = styled.View`
     position: absolute;
+    /* flex-grow: 1; */
     width: ${windowWidth};
     height: ${windowHeight};
+    /* height: ${windowHeight} - 15%; */
+    /* height: ${(height) => windowHeight - 15}%; */
+    /* height: 85%; */
+
     background-color: gray;
     opacity: 0.5;
   `;
+
+  const onUpdateCK = (e) => {
+    const Date =
+      /^(19|20)\d\d([- /.])(0[1-9]|1[012])\2(0[1-9]|[12][0-9]|3[01])$/;
+    const IdCk = /^(?=.*[A-Z])(?=.*\d)[A-Z\d]{12,12}$/;
+
+    // if (inputs.productName === "") {
+    if (productName === "") {
+      Alert.alert("제품명은 필수 입력입니다", "", [
+        { text: "확인", onPress: () => setModalVisible(true) },
+      ]);
+    // } else if (!Date.test(inputs.produce) || inputs.produce !== "") {
+    } else if (!Date.test(produce) && produce !== "") {
+      Alert.alert("제조일자를 형식에 맞게 입력해주세요", "", [
+        {
+          text: "확인",
+          onPress: () => {
+            setModalVisible(true);
+          },
+        },
+      ]);
+    // } else if (!Date.test(inputs.registration) || inputs.registration !== "") {
+    } else if (!Date.test(registration) && registration !== "") {
+      Alert.alert("등록일자를 형식에 맞게 입력해주세요", "", [
+        {
+          text: "확인",
+          onPress: () => {
+            setModalVisible(true);
+          },
+        },
+      ]);
+    } else {
+      // 등록 전 조건에 맞는 내용인지 확인
+      // onUpdate(id, data)     // 조건에 맞는 내용이라면 등록하기
+      onAccept(e, editing);
+    }
+  };
 
   const [editing, setEditing] = useState({
     // 기존값 들고 와서 수정 시 값이 바뀌는걸 반영해줌
@@ -126,16 +151,6 @@ const ListModal = ({
     manager: manager,
   });
 
-  // const _handleChange = (e) => {
-  //   const {name, value} = e.target
-  //   setEditing(pre => {
-  //     return {
-  //       ...pre,
-  //       [ name ]: value
-  //     }
-  //   })
-  // }
-
   const _handleChange = (keyvalue, text) => {
     setEditing((pre) => {
       return {
@@ -147,12 +162,6 @@ const ListModal = ({
     // console.log(keyvalue, inputs[keyvalue]);
   };
 
-  // const refProductID = useRef(null);
-  // const refProductName = useRef(null);
-  // const refProduce = useRef(null);
-  // const refRegistration = useRef(null);
-  // const refDetail = useRef(null);
-
   return (
     <>
       {modalVisible ? <ModalFilter /> : null}
@@ -160,10 +169,6 @@ const ListModal = ({
         animationType="slide" // 아래에서 위로 나타나는 효과
         transparent={true} // 모달창 전체화면 채움 여부(투명창)
         visible={modalVisible} // 모달창 표시 여부
-        // onRequestClose={() => {
-        //   Alert.alert("Modal has been closed.");
-        //   setModalVisible(!modalVisible);
-        // }}  // 모달창 닫힘
       >
         <KeyboardAwareScrollView>
           <View style={styles.centeredView}>
@@ -212,15 +217,16 @@ const ListModal = ({
                       // onPress={() => setModalVisible(!modalVisible)}
                       // onPress={onModalClose}
                       onPress={() => {
-                        setEditingMode(false)
+                        setEditingMode(false);
                         // return users(${id});
-                        onModalClose()
+                        onModalClose();
                       }}
                       title="취소"
                     />
                     <ModalButton
                       // onPress={onUpdate()}
-                      onPress={(e) => {onAccept(e, editing)}}
+                      onPress={onUpdateCK}
+                      // onPress={(e) => {onAccept(e, editing)}}
                       title="수정"
                     />
                   </ButtonBox>
@@ -258,10 +264,7 @@ const ListModal = ({
                   ></Explanation_T>
 
                   <ButtonBox>
-                    <ModalButton
-                      onPress={() => onRemove(id)}
-                      title="삭제"
-                    />
+                    <ModalButton onPress={() => onRemove(id)} title="삭제" />
                     <ModalButton
                       onPress={() => {
                         setEditingMode(true);

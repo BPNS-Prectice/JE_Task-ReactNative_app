@@ -66,14 +66,60 @@ const Explanation = styled.TextInput`
   padding: 10px;
 `;
 
-const NewButton = ({ keyvalue, title, containerStyle, textStyle, productID, productName, produce, registration, detail, onChange, onCreate }) => {
+const NewButton = ({ users, inputs, keyvalue, title, containerStyle, textStyle, productID, productName, produce, registration, detail, onChange, onCreate, onReset }) => {
   const [modalVisible, setModalVisible] = useState(false); // 모달창 열림 여부
 
-  // const refProductID = useRef(null);
-  // const refProductName = useRef(null);
-  // const refProduce = useRef(null);
-  // const refRegistration = useRef(null);
+  const refProductID = useRef();
+  const refProductName = useRef(null);
+  const refProduce = useRef(null);
+  const refRegistration = useRef(null);
   // const refDetail = useRef(null);
+
+  const onCreateCK = () => {
+    const Date = /^(19|20)\d\d([- /.])(0[1-9]|1[012])\2(0[1-9]|[12][0-9]|3[01])$/
+    const IdCk =/^(?=.*[A-Z])(?=.*\d)[A-Z\d]{12,12}$/;
+
+    const duplicateCK = users.some( ({productID}) => {
+      return productID === inputs.productID
+    })
+
+    if((inputs.productID) === '' || (inputs.productName) === '' ) {
+      Alert.alert("제품ID와 제품명은 필수 입력입니다", "", [
+        { text: "확인", onPress: () => setModalVisible(true) },
+      ]);
+    } else if( !IdCk.test(inputs.productID)){
+      Alert.alert("제품ID를 올바르게 입력해주세요", "(숫자, 영어 대문자 조합 12자리)", [
+        { text: "확인", onPress: () => {
+          setModalVisible(true) 
+          // refProductID.current.focus()
+        }},
+      ]);
+    } else if (duplicateCK === true) {
+      console.log(duplicateCK)
+      Alert.alert("이미 존재하는 제품ID입니다", "", [
+        { text: "확인", onPress: () => {
+          setModalVisible(true) 
+        }},
+      ]);
+    } else if( !Date.test(inputs.produce) && (inputs.produce !== '') ) {
+      Alert.alert("제조일자를 형식에 맞게 입력해주세요", "", [
+        { text: "확인", onPress: () => {
+          setModalVisible(true) 
+        }},
+      ]);
+    } else if( !Date.test(inputs.registration) && (inputs.registration !== '') ) {
+      Alert.alert("등록일자를 형식에 맞게 입력해주세요", "", [
+        { text: "확인", onPress: () => {
+          setModalVisible(true) 
+        }},
+      ]);
+    } else{      // 등록 전 조건에 맞는 내용인지 확인
+      onCreate()     // 조건에 맞는 내용이라면 등록하기
+    }
+  } 
+
+
+  
   
   return (
     <>
@@ -89,11 +135,7 @@ const NewButton = ({ keyvalue, title, containerStyle, textStyle, productID, prod
       <Modal
         animationType="slide" // 아래에서 위로 나타나는 효과
         transparent={true} // 모달창 전체화면 채움 여부(투명창)
-        visible={modalVisible} // 모달창 표시 여부
-        // onRequestClose={() => {
-        //   Alert.alert("Modal has been closed.");
-        //   setModalVisible(!modalVisible);
-        // }}
+        visible={modalVisible} // 모달창 표시 여부 
       >
         <KeyboardAwareScrollView>
           <View style={styles.centeredView}>
@@ -103,8 +145,8 @@ const NewButton = ({ keyvalue, title, containerStyle, textStyle, productID, prod
                 <TextInputBox
                   name={"productID"}
                   InputTitleText={"제품 ID"}
-                  // ref={refProductID}
-                  placeholder={"제품고유 ID"}
+                  ref={refProductID}
+                  placeholder={"(필수)제품고유 ID"}
                   onChangeText={(text) => onChange("productID", text)}
                   value={productID}
                   // returnKyeType={"next"}  // **수정필요
@@ -112,9 +154,8 @@ const NewButton = ({ keyvalue, title, containerStyle, textStyle, productID, prod
                 <TextInputBox
                   name={"productName"}
                   InputTitleText={"제품명"}
-                  // ref={refProductName}
-                  placeholder={"제품명을 입력해주세요"}
-                  // onChangeText={onChangeText}
+                  ref={refProductName}
+                  placeholder={"(필수)제품명"}
                   onChangeText={(text) => onChange("productName", text)}
                   onChange={onChange}
                   value={productName}
@@ -123,9 +164,8 @@ const NewButton = ({ keyvalue, title, containerStyle, textStyle, productID, prod
                 <TextInputBox
                   name={"produce"}
                   InputTitleText={"제조일자"}
-                  // ref={refProduce}
+                  ref={refProduce}
                   placeholder={"yyyy-mm-dd"}
-                  // onChangeText={onChangeText}
                   onChangeText={(text) => onChange("produce", text)}
                   value={produce}
                   returnKyeType={"next"}
@@ -133,9 +173,8 @@ const NewButton = ({ keyvalue, title, containerStyle, textStyle, productID, prod
                 <TextInputBox
                   name={"registration"}
                   InputTitleText={"등록일자"}
-                  // ref={refRegistration}
+                  ref={refRegistration}
                   placeholder={"yyyy-mm-dd"}
-                  // onChangeText={onChangeText}
                   onChangeText={(text) => onChange("registration", text)}
                   value={registration}
                   returnKyeType={"next"}
@@ -144,6 +183,7 @@ const NewButton = ({ keyvalue, title, containerStyle, textStyle, productID, prod
                 <Explanation
                   name={"detail"}
                   // ref={refDetail}
+                  placeholder={"(선택)"}
                   value={detail}
                   onChangeText={(text) => onChange("detail", text)}
                   multiline={true}
@@ -153,13 +193,17 @@ const NewButton = ({ keyvalue, title, containerStyle, textStyle, productID, prod
 
                 <ButtonBox>
                   <ModalButton
-                    onPress={() => setModalVisible(!modalVisible)}
+                    onPress={() => {
+                      onReset()
+                      setModalVisible(!modalVisible)
+                    }}
                     title="취소"
                   />
                   <ModalButton
                     // onCreate={onCreate} /////////////////////
                     onPress={() => {
-                      onCreate()
+                      // onCreate()
+                      onCreateCK()
                       setModalVisible(!modalVisible)
                     }}
                     title="등록"
