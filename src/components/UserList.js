@@ -43,6 +43,7 @@ export default function UserList({ users, onUpdate, onRemove }) {
     setShowModal(false);
   };
 
+  
   const handleEditing = (event, data) => {
     onUpdate(data.id, {
       productID: data.productID,
