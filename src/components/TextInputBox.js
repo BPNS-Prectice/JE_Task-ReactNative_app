@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { TextInput } from "react-native-gesture-handler";
@@ -30,19 +30,19 @@ const TextBox = styled.TextInput`
   padding-left: 15px;
 `;
 
-const TextInputBox = ({
+const TextInputBox =  forwardRef(
+  ({
   InputTitleText,
   returnKyeType,
   placeholder,
   onChangeText,
   value,
-  ref,
-}) => {
+  // ref,
+}, ref) => {
   return (
     <Outer>
       <InputTitle>{InputTitleText}</InputTitle>
       <TextBox
-        // ref={ref}
         ref={ref}
         placeholder={placeholder}
         value={value}
@@ -53,6 +53,7 @@ const TextInputBox = ({
       />
     </Outer>
   );
-};
+}
+);
 
 export default TextInputBox;

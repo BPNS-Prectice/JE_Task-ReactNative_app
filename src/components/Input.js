@@ -47,7 +47,7 @@ const Input = forwardRef(
       <Container>
         <Label isFocused={isFocused}>{label}</Label>
         <StyledInput
-          ref={ref}
+          ref={ref}      
           value={value}
           onChangeText={onChangeText}
           onSubmitEditing={onSubmitEditing}

@@ -83,7 +83,6 @@ const ListModal = ({ inputs, users,
   onUpdate,
   onChangeText,
   onRemove,
-  // _handleChange,
   onAccept,
 }) => {
   const [modalVisible, setModalVisible] = useState(true); // 모달창 열림 여부
@@ -118,12 +117,10 @@ const ListModal = ({ inputs, users,
     const IdCk = /^(?=.*[A-Z])(?=.*\d)[A-Z\d]{12,12}$/;
 
 
-    // if (inputs.productName === "") {
     if (editing.productName === "") {
       Alert.alert("제품명은 필수 입력입니다", "", [
         { text: "확인", onPress: () => setModalVisible(true) },
       ]);
-    // } else if (!Date.test(inputs.produce) || inputs.produce !== "") {
     } else if (!Date.test(editing.produce) && editing.produce !== "") {
       Alert.alert("제조일자를 형식에 맞게 입력해주세요", "", [
         {
@@ -133,7 +130,6 @@ const ListModal = ({ inputs, users,
           },
         },
       ]);
-    // } else if (!Date.test(inputs.registration) || inputs.registration !== "") {
     } else if (!Date.test(editing.registration) && editing.registration !== "") {
       Alert.alert("등록일자를 형식에 맞게 입력해주세요", "", [
         {
@@ -232,17 +228,12 @@ const ListModal = ({ inputs, users,
                       }}
                       title="취소"
                     />
-                    <ModalButton
-                      // onPress={onUpdate()}
-                      // onPress={onUpdateCK}
-                      onPress={() => {
-                        // onAccept()
-                        // onUpdate(id, data)
+                    <ModalButton 
+                      onPress={() => { 
                         onUpdateCK()
                         // console.log(editing.value)
                         console.log(editing.productName)
-                      }}
-                      // onPress={(e) => {onAccept(e, editing)}}
+                      }} 
                       title="수정"
                     />
                   </ButtonBox>
@@ -275,23 +266,14 @@ const ListModal = ({ inputs, users,
                     // ref={refDetail}
                     value={detail}
                     multiline={true}
-                    textAlignVertical="top" // 첫줄부터 입력시작 (기본값은 center)
+                    textAlignVertical="top"       // 첫줄부터 입력시작 (기본값은 center)
                     styled={{ fontSize: "18px" }}
                   ></Explanation_T>
 
                   <ButtonBox>
                     <ModalButton onPress={() => onRemove(id)} title="삭제" />
                     <ModalButton
-                      onPress={() => {
-                      // onPress={(event, data) => {  
-                        // setEditingInputs({      //  = onAccept()
-                        //   // productID: data.productID,                                   
-                        //   productName: data.productName,
-                        //   produce: data.produce,
-                        //   registration: data.registration,
-                        //   detail: data.detail,
-                        //   manager: data.manager
-                        // })
+                      onPress={() => { 
                         setEditingMode(true);
                       }}
                       title="수정"

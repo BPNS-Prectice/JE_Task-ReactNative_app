@@ -1,6 +1,6 @@
 // 회원가입 화면
 
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import { Button, Input, ErrorMessage } from "../components";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -101,7 +101,7 @@ export default function Signup({ navigation }) {
           ref={refName}
           label="이름"
           placeholder="Name"
-          returnkeyType="next"
+          returnKeyType="next"
           value={name}
           onChangeText={setName}
           onSubmitEditing={() => refEmail.current.focus()}
@@ -127,7 +127,7 @@ export default function Signup({ navigation }) {
           // onChangeText={(text) => {
           //   setPassword(text)
           //   console.log(text)
-          // }}           // 이런식(하나에 두개 이상의 이벤트글 실행하는 구문)을 쓸땐 (인자)를 들고와야한다
+          // }}           // 이런식(하나에 두개 이상의 이벤트글 실행하는 구문 중 하나라도 인자가 필요한게 있는 함수)을 쓸땐 (인자)를 들고와야한다
           onChangeText={setPassword}
           isPassword={true} // 비밀번호 입력 시 특수문자로 노출
           onSubmitEditing={() => refPasswordConfirm.current.focus()}
@@ -149,8 +149,7 @@ export default function Signup({ navigation }) {
           ref={refIntroduce}
           label="소개"
           placeholder="(선택) 간단 자기소개"
-          // returnkeyType="done"
-          returnkeyType= "next" 
+          returnkeyType="next"
           value={introduce}
           onChangeText={setIntroduce}
           isPassword={false} // 비밀번호 입력 시 특수문자로 노출

@@ -69,10 +69,10 @@ const Explanation = styled.TextInput`
 const NewButton = ({ users, inputs, keyvalue, title, containerStyle, textStyle, productID, productName, produce, registration, detail, onChange, onCreate, onReset }) => {
   const [modalVisible, setModalVisible] = useState(false); // 모달창 열림 여부
 
-  const refProductID = useRef();
-  const refProductName = useRef(null);
-  const refProduce = useRef(null);
-  const refRegistration = useRef(null);
+  // const refProductID = useRef();
+  // const refProductName = useRef(null);
+  // const refProduce = useRef(null);
+  // const refRegistration = useRef(null);
   // const refDetail = useRef(null);
 
   const onCreateCK = () => {
@@ -145,39 +145,47 @@ const NewButton = ({ users, inputs, keyvalue, title, containerStyle, textStyle, 
                 <TextInputBox
                   name={"productID"}
                   InputTitleText={"제품 ID"}
-                  ref={refProductID}
                   placeholder={"(필수)제품고유 ID"}
                   onChangeText={(text) => onChange("productID", text)}
                   value={productID}
-                  // returnKyeType={"next"}  // **수정필요
+
+                  // ref={refProductID}
+                  returnKyeType="next"  // **수정필요
+                  blurOnSubmit={false}
+                  // onSubmitEditing={() => refProductName.current.focus()}
                 />
                 <TextInputBox
                   name={"productName"}
                   InputTitleText={"제품명"}
-                  ref={refProductName}
                   placeholder={"(필수)제품명"}
                   onChangeText={(text) => onChange("productName", text)}
                   onChange={onChange}
                   value={productName}
-                  returnKyeType={"next"}
+
+                  // ref={refProductName}
+                  returnKeyType="next"
+                  // blurOnSubmit={false}
+                  onSubmitEditing={() => refProduce.current.focus()}
                 />
                 <TextInputBox
                   name={"produce"}
                   InputTitleText={"제조일자"}
-                  ref={refProduce}
                   placeholder={"yyyy-mm-dd"}
                   onChangeText={(text) => onChange("produce", text)}
                   value={produce}
-                  returnKyeType={"next"}
+
+                  // ref={refProduce}
+                  returnKyeType="next"
                 />
                 <TextInputBox
                   name={"registration"}
                   InputTitleText={"등록일자"}
-                  ref={refRegistration}
                   placeholder={"yyyy-mm-dd"}
                   onChangeText={(text) => onChange("registration", text)}
                   value={registration}
-                  returnKyeType={"next"}
+
+                  // ref={refRegistration}
+                  returnKyeType="next"
                 />
                 <Text style={{ fontSize: 20, lineHeight: 50 }}>상세설명</Text>
                 <Explanation
@@ -200,7 +208,6 @@ const NewButton = ({ users, inputs, keyvalue, title, containerStyle, textStyle, 
                     title="취소"
                   />
                   <ModalButton
-                    // onCreate={onCreate} /////////////////////
                     onPress={() => {
                       // onCreate()
                       onCreateCK()
